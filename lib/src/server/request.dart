@@ -2,13 +2,12 @@ import 'dart:io';
 
 class Request {
 
-	const Request({
+	Request({
 		required this.method,
 		required this.uri,
 		required this.headers,
 		required this.body,
-		this.data = const {}
-	});
+	}) : data = {};
 
 	final String method;
 	final Uri uri;

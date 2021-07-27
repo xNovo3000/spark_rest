@@ -1,51 +1,42 @@
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:spark_http/spark_http.dart' as spark;
-import 'package:spark_http/src/generator/chain_generator.dart';
-import 'package:spark_http/src/server/endpoint.dart';
-import 'package:spark_http/src/server/response.dart';
-import 'package:spark_http/src/server/request.dart';
+import 'package:spark_http/spark_http.dart';
 
-class RootEndpoint extends Endpoint {
-	
+class RootReqMw extends Middleware<Request> {
+
 	@override
-	Future<Response> onHandle(Request request) async {
-		return Response.ok(
-			request: request,
-			body: 'Test',
-			contentType: ContentType.text
-		);
+	Future<Request> onHandle(Request data) async {
+		data.data['test'] = 'test';
+		return data;
 	}
 
 }
 
-class JsonEndpoint extends Endpoint {
-	
+class RootEp extends Endpoint {
+
+	RootEp() : super(
+		method: 'GET',
+		uri: '/',
+		requestMiddlewares: ['root']
+	);
+
 	@override
 	Future<Response> onHandle(Request request) async {
+		print(request.data.length);
 		return Response.ok(
 			request: request,
-			body: json.encode({
-				'test': true
-			}),
-			contentType: ContentType.json
+			contentType: ContentType.text,
+			body: 'Weee',
 		);
 	}
-
+	
 }
 
-Future main() => spark.boot(
+Future main() => boot(
+	requestMiddlewares: {
+		'root': RootReqMw(),
+	},
 	endpoints: [
-		ChainGenerator(
-			method: 'GET',
-			uri: '/',
-			endpoint: RootEndpoint(),
-		),
-		ChainGenerator(
-			method: 'GET',
-			uri: '/test',
-			endpoint: JsonEndpoint(),
-		),
+		RootEp(),
 	]
 );

@@ -3,9 +3,9 @@ import 'package:spark_http/src/server/response.dart';
 
 abstract class Middleware<T> {
 
-	Middleware() : assert(T is Request || T is Response);
+	Middleware() : assert(T == Request || T == Response);
 
-	Future<void> onInit();
+	Future<void> onInit(String uri, String method) async => null;
 
 	Future<T> onHandle(final T data);
 
@@ -14,5 +14,7 @@ abstract class Middleware<T> {
 	bool get singleton => true;
 
 	bool Function(String method, String uri)? get appendOverride => null;
+
+	bool get appendAtBegin => false;
 
 }
