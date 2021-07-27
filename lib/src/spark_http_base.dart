@@ -16,7 +16,7 @@ Future boot({
 	Map<String, Middleware<Response>> responseMiddlewares = const {},
 	List<Endpoint> endpoints = const [],
 	List<Plugin> plugins = const [],
-}) async {
+}) {
 	// TODO: add plugin handle
 	// generate the router
 	final router = Router();
@@ -27,12 +27,12 @@ Future boot({
 			requestMiddlewares: List.generate(
 				ep.requestMiddlewares.length,
 				(index) => _handleMiddlewareGet(index, requestMiddlewares, ep),
-				growable: false
+				growable: true
 			),
 			responseMiddlewares: List.generate(
 				ep.responseMiddlewares.length,
 				(index) => _handleMiddlewareGet(index, responseMiddlewares, ep),
-				growable: false
+				growable: true
 			),
 		);
 	}
@@ -47,7 +47,7 @@ Future boot({
 			router.appendMiddleware(middleware, middleware.appendAtBegin) : null
 	);
 	// init everything
-	await router.loadObjects();
+	router.loadObjects();
 	// generate the server
 	return HttpServer.bind(InternetAddress.anyIPv4, port)
 		.then(

@@ -10,6 +10,14 @@ class RootReqMw extends Middleware<Request> {
 		return data;
 	}
 
+	@override
+	Future<void> onInit(String uri, String method) async {
+		print('loaded middleware one time');
+	}
+
+	@override
+  bool Function(String method, String uri) get appendOverride => (method, uri) => true;
+
 }
 
 class RootEp extends Endpoint {
@@ -17,7 +25,6 @@ class RootEp extends Endpoint {
 	RootEp() : super(
 		method: 'GET',
 		uri: '/',
-		requestMiddlewares: ['root']
 	);
 
 	@override
@@ -29,7 +36,7 @@ class RootEp extends Endpoint {
 			body: 'Weee',
 		);
 	}
-	
+
 }
 
 Future main() => boot(

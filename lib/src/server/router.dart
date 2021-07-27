@@ -11,8 +11,8 @@ class Router {
 	final Map<String, Map<String, Chain>> _tree = HashMap();
 
 	void appendRoute({
-		List<Middleware<Request>> requestMiddlewares = const [],
-		List<Middleware<Response>> responseMiddlewares = const [],
+		required List<Middleware<Request>> requestMiddlewares,
+		required List<Middleware<Response>> responseMiddlewares,
 		required Endpoint endpoint,
 	}) => _tree.putIfAbsent(endpoint.uri, () => HashMap()).putIfAbsent(endpoint.method, () => Chain(
 		requestMiddlewares: requestMiddlewares,
@@ -41,7 +41,7 @@ class Router {
 		}));
 	}
 
-	Future<void> loadObjects() async {
+	void loadObjects() {
 		// contains all middlwares already loaded
 		Set<Middleware<Request>> loadedRequestMiddlewares = HashSet();
 		Set<Middleware<Response>> loadedResponseMiddlewares = HashSet();
