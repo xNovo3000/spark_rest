@@ -1,10 +1,10 @@
 import 'dart:collection';
 
-import 'package:spark_http/src/server/chain.dart';
-import 'package:spark_http/src/server/endpoint.dart';
-import 'package:spark_http/src/server/middleware.dart';
-import 'package:spark_http/src/server/request.dart';
-import 'package:spark_http/src/server/response.dart';
+import 'package:spark_rest/src/server/chain.dart';
+import 'package:spark_rest/src/server/endpoint.dart';
+import 'package:spark_rest/src/server/middleware.dart';
+import 'package:spark_rest/src/server/request.dart';
+import 'package:spark_rest/src/server/response.dart';
 
 class Router {
 

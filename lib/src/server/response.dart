@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:spark_http/src/server/request.dart';
+import 'package:spark_rest/src/server/request.dart';
 
 class Response {
 

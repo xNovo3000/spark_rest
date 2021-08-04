@@ -1,5 +1,5 @@
-import 'package:spark_http/src/server/request.dart';
-import 'package:spark_http/src/server/response.dart';
+import 'package:spark_rest/src/server/request.dart';
+import 'package:spark_rest/src/server/response.dart';
 
 abstract class Endpoint {
 

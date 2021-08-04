@@ -1,4 +1,4 @@
-import 'package:spark_http/src/logger/level.dart';
+import 'package:spark_rest/src/logger/level.dart';
 
 abstract class Logger {
 

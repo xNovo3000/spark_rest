@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:spark_http/spark_http.dart';
+import 'package:spark_rest/spark_rest.dart';
 
 class RootReqMw extends Middleware<Request> {
 

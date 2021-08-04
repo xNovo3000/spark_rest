@@ -2,13 +2,13 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:spark_http/src/logger/logger.dart';
-import 'package:spark_http/src/server/endpoint.dart';
-import 'package:spark_http/src/server/middleware.dart';
-import 'package:spark_http/src/addon/plugin.dart';
-import 'package:spark_http/src/server/request.dart';
-import 'package:spark_http/src/server/response.dart';
-import 'package:spark_http/src/server/router.dart';
+import 'package:spark_rest/src/logger/logger.dart';
+import 'package:spark_rest/src/server/endpoint.dart';
+import 'package:spark_rest/src/server/middleware.dart';
+import 'package:spark_rest/src/addon/plugin.dart';
+import 'package:spark_rest/src/server/request.dart';
+import 'package:spark_rest/src/server/response.dart';
+import 'package:spark_rest/src/server/router.dart';
 
 Future boot({
 	int port = 8080,
