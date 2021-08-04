@@ -1,19 +1,28 @@
-A library for Dart developers.
+# SparkREST
 
-## Usage
+## A blazing-fast RESTful API for Dart
 
-A simple usage example:
+This package was created after the deprecation of Aqueduct. It is designed to be more developer-friendly
 
-```dart
-import 'package:spark_http/spark_http.dart';
+---
 
-main() {
-  var awesome = new Awesome();
-}
-```
+### Package objectives
 
-## Features and bugs
+- Simple to use
+- Lightweight
+- Very low time-to-deploy
 
-Please file feature requests and bugs at the [issue tracker][tracker].
+### Features
 
-[tracker]: http://example.com/issues/replaceme
+- Separate classes for each endpoints and methods
+- Fully-configurable middlewares that manages the request before and after reaches the endpoint
+- Native performance: every API created with SparkREST can be compiled using Dart's AOT compiler
+
+### Incoming features
+
+- Plugins: everyone can create and publish a plugin on pub.dev
+
+### How to use
+
+- This is not a production server; must be used with Nginx as a reverse-proxy (or every other server that has the reverse-proxy capability)
+- This API is designed to be sessionless and single threaded. If you have more CPU threads, you have to run multiple instances of your API and enable load balancing on your production server

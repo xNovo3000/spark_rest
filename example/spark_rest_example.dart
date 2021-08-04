@@ -39,7 +39,7 @@ class RootEp extends Endpoint {
 
 }
 
-Future main() => boot(
+Future main() => sparkBoot(
 	requestMiddlewares: {
 		'root': RootReqMw(),
 	},

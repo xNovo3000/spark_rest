@@ -10,7 +10,7 @@ import 'package:spark_rest/src/server/request.dart';
 import 'package:spark_rest/src/server/response.dart';
 import 'package:spark_rest/src/server/router.dart';
 
-Future boot({
+Future sparkBoot({
 	int port = 8080,
 	Map<String, Middleware<Request>> requestMiddlewares = const {},
 	Map<String, Middleware<Response>> responseMiddlewares = const {},
@@ -77,7 +77,7 @@ Future boot({
 }
 
 Middleware<T> _handleMiddlewareGet<T>(int index, Map<String, Middleware<T>> map, Endpoint endpoint) {
-	var mw;
+	Middleware<T> mw;
 	if (T == Request) {
 		mw = map[endpoint.requestMiddlewares[index]]!;
 	} else { // T == Response

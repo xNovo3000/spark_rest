@@ -16,14 +16,24 @@ class Chain {
 	final List<Middleware<Response>> responseMiddlewares;
 
 	Future<Response> onHandle(Request request) async {
-		for (var middleware in requestMiddlewares) {
-			request = await middleware.onHandle(request);
+		try {
+			for (var middleware in requestMiddlewares) {
+				request = await middleware.onHandle(request);
+			}
+			var response = await endpoint.onHandle(request);
+			for (var middleware in responseMiddlewares) {
+				response = await middleware.onHandle(response);
+			}
+			return response;
+		} on Response catch (response) {
+			return response;
+		} catch (e) {
+			return Response.error(
+				request: request,
+				statusCode: 500,
+				message: e.toString()
+			);
 		}
-		var response = await endpoint.onHandle(request);
-		for (var middleware in responseMiddlewares) {
-			response = await middleware.onHandle(response);
-		}
-		return response;
 	}
 
 }

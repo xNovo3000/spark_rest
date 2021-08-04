@@ -24,17 +24,20 @@ class Router {
 		_tree.forEach((uri, map) => map.forEach((method, chain) {
 			var result = middleware.appendOverride!(method, uri);
 			if (result) {
+				// generate middleware
+				var newMiddleware = middleware.singleton ? middleware : middleware.clone();
+				// append
 				if (T == Request) {
 					if (middleware.appendAtBegin) {
-						chain.requestMiddlewares.insert(0, middleware as Middleware<Request>);
+						chain.requestMiddlewares.insert(0, newMiddleware as Middleware<Request>);
 					} else {
-						chain.requestMiddlewares.add(middleware as Middleware<Request>);
+						chain.requestMiddlewares.add(newMiddleware as Middleware<Request>);
 					}
 				} else { // T == Response
 					if (middleware.appendAtBegin) {
-						chain.responseMiddlewares.insert(0, middleware as Middleware<Response>);
+						chain.responseMiddlewares.insert(0, newMiddleware as Middleware<Response>);
 					} else {
-						chain.responseMiddlewares.add(middleware as Middleware<Response>);
+						chain.responseMiddlewares.add(newMiddleware as Middleware<Response>);
 					}
 				}
 			}
