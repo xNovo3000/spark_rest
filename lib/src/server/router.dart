@@ -46,19 +46,21 @@ class Router {
 
 	void loadObjects() {
 		// contains all middlwares already loaded
-		Set<Middleware<Request>> loadedRequestMiddlewares = HashSet();
-		Set<Middleware<Response>> loadedResponseMiddlewares = HashSet();
+		var loadedRequestMiddlewares = <Middleware<Request>>[];
+		var loadedResponseMiddlewares = <Middleware<Response>>[];
 		// loads all
-		_tree.forEach((uri, map) => map.forEach((method, chain) async {
-			chain.requestMiddlewares.forEach((requestMiddleware) async {
+		_tree.forEach((uri, map) => map.forEach((method, chain) {
+			chain.requestMiddlewares.forEach((requestMiddleware) {
 				if (!loadedRequestMiddlewares.contains(requestMiddleware)) {
-					await requestMiddleware.onInit(uri, method);
+					requestMiddleware.onInit(uri, method);
+					loadedRequestMiddlewares.add(requestMiddleware);
 				}
 			});
-			await chain.endpoint.onInit(uri, method);
-			chain.responseMiddlewares.forEach((responseMiddleware) async {
+			chain.endpoint.onInit(uri, method);
+			chain.responseMiddlewares.forEach((responseMiddleware) {
 				if (!loadedResponseMiddlewares.contains(responseMiddleware)) {
-					await responseMiddleware.onInit(uri, method);
+					responseMiddleware.onInit(uri, method);
+					loadedResponseMiddlewares.add(responseMiddleware);
 				}
 			});
 		}));
