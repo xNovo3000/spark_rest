@@ -33,7 +33,7 @@ class RootEp extends Endpoint {
 		return Response.ok(
 			request: request,
 			contentType: ContentType.text,
-			body: 'Weee',
+			body: 'Hello world',
 		);
 	}
 
