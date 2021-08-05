@@ -10,6 +10,12 @@ import 'package:spark_rest/src/server/request.dart';
 import 'package:spark_rest/src/server/response.dart';
 import 'package:spark_rest/src/server/router.dart';
 
+/// Function used to run a Spark server
+/// 
+/// Takes in input the [port] the server should listen to, all the [requestMiddlewares] required,
+/// all the [responseMiddlewares] required, all the [endpoints] and the [plugins].
+/// IMPORTANT: the order of [requestMiddlewares], [responseMiddlewares] and [plugins] matters
+/// a lot, so make sure everything is set up correctly.
 Future sparkBoot({
 	int port = 8080,
 	Map<String, Middleware<Request>> requestMiddlewares = const {},
