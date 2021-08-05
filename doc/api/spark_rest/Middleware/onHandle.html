@@ -109,7 +109,11 @@
     
 <section class="desc markdown">
   <p>Executed every time a <a href="../../spark_rest/Request-class.html">Request</a> or a <a href="../../spark_rest/Response-class.html">Response</a> should pass in this <a href="../../spark_rest/Middleware-class.html">Middleware</a></p>
-<p>Do not call this function on purpose</p>
+<p>If you are in a request middleware and you don't want to pass the request to the endpoint,
+then throw a <a href="../../spark_rest/Response-class.html">Response</a> error.</p>
+<pre class="language-dart"><code class="language-dart">throw Response(...);
+</code></pre>
+<p>Do not call this function on purpose.</p>
 </section>
 
 

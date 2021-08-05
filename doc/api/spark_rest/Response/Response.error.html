@@ -101,11 +101,19 @@
       <span class="name ">Response.error</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="error-param-request">{<span>required</span> <span class="type-annotation"><a href="../../spark_rest/Request-class.html">Request</a></span> <span class="parameter-name">request</span>, </span></li>
 <li><span class="parameter" id="error-param-statusCode"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.4/dart-core/int-class.html">int</a></span> <span class="parameter-name">statusCode</span> = <span class="default-value">501</span>, </span></li>
 <li><span class="parameter" id="error-param-headers"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.13.4/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span> <span class="parameter-name">headers</span> = <span class="default-value">const {}</span>, </span></li>
-<li><span class="parameter" id="error-param-message"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">message</span> = <span class="default-value">&#39;NOT_IMPLEMENTED&#39;</span>}</span></li>
+<li><span class="parameter" id="error-param-message"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">message</span> = <span class="default-value">&#39;This function has not been implemented&#39;</span>}</span></li>
 </ol>)
     </section>
 
     
+<section class="desc markdown">
+  <p>Generates a non successful response</p>
+<p>This type of response is being sent with an error <code>message</code>. Example:</p>
+<pre class="language-json"><code class="language-json">{
+	"message": "My custom error message"
+}
+</code></pre>
+</section>
 
 
     
@@ -115,7 +123,7 @@
 	required Request request,
 	int statusCode = 501,
 	Map&lt;String, dynamic&gt; headers = const {},
-	String message = &#39;NOT_IMPLEMENTED&#39;,
+	String message = &#39;This function has not been implemented&#39;,
 }) =&gt; Response(
 	request: request,
 	statusCode: statusCode,

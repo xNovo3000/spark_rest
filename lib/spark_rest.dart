@@ -1,3 +1,6 @@
+/// A blazing-fast RESTful API for Dart
+/// 
+/// This package was created after the deprecation of Aqueduct. It is designed to be more developer-friendly
 library spark_rest;
 
 export 'src/spark_rest_base.dart';

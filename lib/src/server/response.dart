@@ -24,11 +24,11 @@ class Response {
 	/// Generates a non successful response
 	/// 
 	/// This type of response is being sent with an error [message]. Example:
-	/// json'''
+	/// ```json
 	/// {
-	/// 		"message": "My custom error message"
+	/// 	"message": "My custom error message"
 	/// }
-	/// '''
+	/// ```
 	factory Response.error({
 		required Request request,
 		int statusCode = 501,

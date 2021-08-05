@@ -2,6 +2,8 @@ import 'package:spark_rest/src/server/request.dart';
 import 'package:spark_rest/src/server/response.dart';
 
 /// The base class for request and response middlewares
+/// 
+/// A [Middleware] runs before and after and endpoint does
 abstract class Middleware<T> {
 
 	/// Constructor
@@ -18,7 +20,14 @@ abstract class Middleware<T> {
 
 	/// Executed every time a [Request] or a [Response] should pass in this [Middleware]
 	/// 
-	/// Do not call this function on purpose
+	/// If you are in a request middleware and you don't want to pass the request to the endpoint,
+	/// then throw a [Response] error.
+	/// 
+	/// ```dart
+	/// throw Response(...);
+	/// ```
+	/// 
+	/// Do not call this function on purpose.
 	Future<T> onHandle(final T data);
 
 	/// Executed when your middleware is not a singleton
