@@ -44,26 +44,31 @@ class Router {
 		}));
 	}
 
-	void loadObjects() {
+	Future<void> loadObjects() async {
 		// contains all middlwares already loaded
 		var loadedRequestMiddlewares = <Middleware<Request>>[];
 		var loadedResponseMiddlewares = <Middleware<Response>>[];
 		// loads all
-		_tree.forEach((uri, map) => map.forEach((method, chain) {
-			chain.requestMiddlewares.forEach((requestMiddleware) {
-				if (!loadedRequestMiddlewares.contains(requestMiddleware)) {
-					requestMiddleware.onInit(uri, method);
+		for (var x in _tree.entries) {
+			var uri = x.key;
+			for (var y in x.value.entries) {
+				// get method and chain
+				var method = y.key;
+				var chain = y.value;
+				// for each request middleware
+				for (var requestMiddleware in chain.requestMiddlewares) {
+					await requestMiddleware.onInit(uri, method);
 					loadedRequestMiddlewares.add(requestMiddleware);
 				}
-			});
-			chain.endpoint.onInit(uri, method);
-			chain.responseMiddlewares.forEach((responseMiddleware) {
-				if (!loadedResponseMiddlewares.contains(responseMiddleware)) {
-					responseMiddleware.onInit(uri, method);
+				// init endpoints
+				await chain.endpoint.onInit(uri, method);
+				// for each response middleware
+				for (var responseMiddleware in chain.responseMiddlewares) {
+					await responseMiddleware.onInit(uri, method);
 					loadedResponseMiddlewares.add(responseMiddleware);
 				}
-			});
-		}));
+			}
+		}
 	}
 
 	Future<Response> onHandle(final Request request) async {
