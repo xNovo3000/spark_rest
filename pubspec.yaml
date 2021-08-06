@@ -1,6 +1,7 @@
 name: spark_rest
 description: A blazing-fast RESTful API for Dart
 version: 0.1.1
+repository: https://github.com/xNovo3000/spark_rest
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
