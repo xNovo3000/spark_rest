@@ -1,6 +1,6 @@
 # SparkREST
 
-## A blazing-fast RESTful API for Dart
+## A blazing-fast, single instance, sessionless RESTful API for Dart
 
 This package was created after the deprecation of Aqueduct. It is designed to be more developer-friendly
 

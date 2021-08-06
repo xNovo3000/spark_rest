@@ -1,5 +1,1 @@
-abstract class Plugin {
-
-	
-
-}
+abstract class Plugin {}
