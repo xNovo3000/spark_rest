@@ -57,15 +57,19 @@ class Router {
 				var chain = y.value;
 				// for each request middleware
 				for (var requestMiddleware in chain.requestMiddlewares) {
-					await requestMiddleware.onInit(uri, method);
-					loadedRequestMiddlewares.add(requestMiddleware);
+					if (!loadedRequestMiddlewares.contains(requestMiddleware)) {
+						await requestMiddleware.onInit(uri, method);
+						loadedRequestMiddlewares.add(requestMiddleware);
+					}
 				}
 				// init endpoints
 				await chain.endpoint.onInit(uri, method);
 				// for each response middleware
 				for (var responseMiddleware in chain.responseMiddlewares) {
-					await responseMiddleware.onInit(uri, method);
-					loadedResponseMiddlewares.add(responseMiddleware);
+					if (!loadedResponseMiddlewares.contains(responseMiddleware)) {
+						await responseMiddleware.onInit(uri, method);
+						loadedResponseMiddlewares.add(responseMiddleware);
+					}
 				}
 			}
 		}
