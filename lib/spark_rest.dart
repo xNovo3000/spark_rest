@@ -9,3 +9,4 @@ export 'src/server/method.dart';
 export 'src/server/middleware.dart';
 export 'src/server/request.dart';
 export 'src/server/response.dart';
+export 'src/server/router.dart';

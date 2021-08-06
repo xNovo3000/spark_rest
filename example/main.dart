@@ -10,7 +10,7 @@ class RootReqMw extends Middleware<Request> {
   }
 
   @override
-  Future<void> onInit(String uri, String method) async {
+  Future<void> onInit(final Router router) async {
     print('loaded middleware one time');
   }
 

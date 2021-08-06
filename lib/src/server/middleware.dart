@@ -1,13 +1,13 @@
 import 'package:spark_rest/src/server/request.dart';
 import 'package:spark_rest/src/server/response.dart';
+import 'package:spark_rest/src/server/router.dart';
 
 /// The base class for request and response middlewares
 ///
-/// A [Middleware] runs before and after and endpoint does
+/// The type of the [Middleware] must be wither [Request] or [Response].
 abstract class Middleware<T> {
   /// Constructor
   ///
-  /// The type of the [Middleware] must be wither [Request] or [Response].
   /// Use the constructor ONLY if you need to initialize a variable and it is a Singleton.
   /// Otherwise, use the [onInit] method.
   Middleware() : assert(T == Request || T == Response);
@@ -15,7 +15,7 @@ abstract class Middleware<T> {
   /// Executed one time when the [Middleware] is initialized
   ///
   /// Do not call this function on purpose, it is called for you from Spark.
-  Future<void> onInit(String uri, String method) async => null;
+  Future<void> onInit(final Router router) async => null;
 
   /// Executed every time a [Request] or a [Response] should pass in this [Middleware]
   ///

@@ -57,24 +57,22 @@ class Router {
     var loadedResponseMiddlewares = <Middleware<Response>>[];
     // loads all
     for (var x in _tree.entries) {
-      var uri = x.key;
       for (var y in x.value.entries) {
         // get method and chain
-        var method = y.key;
         var chain = y.value;
         // for each request middleware
         for (var requestMiddleware in chain.requestMiddlewares) {
           if (!loadedRequestMiddlewares.contains(requestMiddleware)) {
-            await requestMiddleware.onInit(uri, method);
+            await requestMiddleware.onInit(this);
             loadedRequestMiddlewares.add(requestMiddleware);
           }
         }
         // init endpoints
-        await chain.endpoint.onInit(uri, method);
+        await chain.endpoint.onInit(this);
         // for each response middleware
         for (var responseMiddleware in chain.responseMiddlewares) {
           if (!loadedResponseMiddlewares.contains(responseMiddleware)) {
-            await responseMiddleware.onInit(uri, method);
+            await responseMiddleware.onInit(this);
             loadedResponseMiddlewares.add(responseMiddleware);
           }
         }
@@ -90,12 +88,14 @@ class Router {
     return chain.onHandle(request);
   }
 
-  List<String> getMethodsForSpecificRoute(final String route) {
-    var map = _tree['route'];
-    if (map == null) {
-      return [];
-    } else {
-      return List.unmodifiable(map.keys);
-    }
+  Map<String, List<String>> get tree {
+    var result = <String, List<String>>{};
+    _tree.forEach((uri, map) {
+      var list = <String>[];
+      map.forEach((method, chain) => list.add(method));
+      result[uri] = list;
+    });
+    return result;
   }
+
 }

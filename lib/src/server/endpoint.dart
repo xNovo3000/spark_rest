@@ -1,5 +1,6 @@
 import 'package:spark_rest/src/server/request.dart';
 import 'package:spark_rest/src/server/response.dart';
+import 'package:spark_rest/src/server/router.dart';
 
 /// A single endpoint in the server
 abstract class Endpoint {
@@ -26,7 +27,7 @@ abstract class Endpoint {
   /// Executed one time when the [Endpoint] is initialized
   ///
   /// Do not call this function on purpose, it is called for you from Spark.
-  Future<void> onInit(String uri, String method) async => null;
+  Future<void> onInit(final Router router) async => null;
 
   /// Executed every time a [Request] should pass in this [Endpoint]
   ///
