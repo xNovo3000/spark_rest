@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:spark_rest/src/new_server/actuator/endpoint.dart';
@@ -31,7 +32,36 @@ abstract class Application
                 responseMiddlewares: []));
   }
 
-  void registerMiddleware<T>(
+  void registerSingleMiddleware<T>(final String? uri, final Method? method,
+      final MiddlewareAttachType attachType, final Middleware<T> middleware) {
+    switch (attachType) {
+      case MiddlewareAttachType.whenUriHasBeenExtracted:
+        assert(T == Request, 'Must be a reuqest middleware');
+        assert(uri != null, 'Uri must not be null');
+        _router[uri]!.middlewares.add(middleware as Middleware<Request>);
+        break;
+      case MiddlewareAttachType.whenMethodHasBeenExtracted:
+        assert(T == Request, 'Must be a reuqest middleware');
+        assert(uri != null, 'Uri must not be null');
+        assert(method != null, 'Method must not be null');
+        _router[uri]!
+            .methodRouter[method]!
+            .requestMiddlewares
+            .add(middleware as Middleware<Request>);
+        break;
+      case MiddlewareAttachType.afterEndpointExecution:
+        assert(T == Response, 'Must be a response middleware');
+        assert(uri != null, 'Uri must not be null');
+        assert(method != null, 'Method must not be null');
+        _router[uri]!
+            .methodRouter[method]!
+            .responseMiddlewares
+            .add(middleware as Middleware<Response>);
+        break;
+    }
+  }
+
+  void registerWidespreadMiddleware<T>(
       final MiddlewareAttachType attachType, final Middleware<T> middleware) {
     switch (attachType) {
       case MiddlewareAttachType.whenUriHasBeenExtracted:
@@ -73,17 +103,46 @@ abstract class Application
   void registerPlugin() {}
 
   @override
+  Future<void> onInit() async {
+    Set<Middleware<Request>> alreadyLoadedRequestMiddlewares = HashSet();
+    Set<Middleware<Response>> alreadyLoadedResponseMiddlewares = HashSet();
+    for (var a1 in _router.entries) {
+      for (var middleware in a1.value.middlewares) {
+        if (!alreadyLoadedRequestMiddlewares.contains(middleware)) {
+          await middleware.onInit();
+          alreadyLoadedRequestMiddlewares.add(middleware);
+        }
+      }
+      for (var a2 in a1.value.methodRouter.entries) {
+        for (var middleware in a2.value.requestMiddlewares) {
+          if (!alreadyLoadedRequestMiddlewares.contains(middleware)) {
+            await middleware.onInit();
+            alreadyLoadedRequestMiddlewares.add(middleware);
+          }
+        }
+        for (var middleware in a2.value.responseMiddlewares) {
+          if (!alreadyLoadedResponseMiddlewares.contains(middleware)) {
+            await middleware.onInit();
+            alreadyLoadedResponseMiddlewares.add(middleware);
+          }
+        }
+        await a2.value.endpoint.onInit();
+      }
+    }
+  }
+
+  @override
   Future<Response> onHandle(Request request) async {
     try {
       return _router.onHandle(request);
     } on Response catch (response) {
       return response;
-    } catch (e) {
+    } catch (error) {
       return Response(
           request: request,
           statusCode: 500,
           headers: {'Content-Type': 'application/json'},
-          body: json.encode({'error': '$e'}));
+          body: json.encode({'error': '$error'}));
     }
   }
 }
