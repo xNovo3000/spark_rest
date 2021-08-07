@@ -6,7 +6,8 @@ abstract class Middleware<T> implements Initializable, Handlable<T, T> {
   @override
   Future<void> onInit() async => null;
 
-  bool Function(String uri, Method method) get attachTo;
+  bool Function(String? uri, Method? method) get attachTo =>
+      (uri, method) => false;
 
   Middleware<T>? get clone => null;
 }
