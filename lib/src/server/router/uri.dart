@@ -1,8 +1,8 @@
 import 'dart:collection';
 import 'dart:io';
 
-import 'package:spark_rest/src/server/actuator/application.dart';
 import 'package:spark_rest/src/server/chain/uri.dart';
+import 'package:spark_rest/src/server/container/context.dart';
 import 'package:spark_rest/src/server/container/request.dart';
 import 'package:spark_rest/src/server/container/response.dart';
 import 'package:spark_rest/src/server/interface/handlable.dart';
@@ -41,7 +41,6 @@ class UriRouter extends MapBase<String, UriChain>
     return uriChain.onHandle(request);
   }
 
-  // TODO: implement
-  static UriRouter of(final Application application) =>
-      throw UnimplementedError();
+  static UriRouter of(final Context context) =>
+      context.findInstanceOfType<UriRouter>();
 }

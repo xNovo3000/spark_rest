@@ -1,12 +1,13 @@
 import 'dart:collection';
 import 'dart:io';
 
-import 'package:spark_rest/src/server/actuator/application.dart';
 import 'package:spark_rest/src/server/chain/endpoint.dart';
+import 'package:spark_rest/src/server/container/context.dart';
 import 'package:spark_rest/src/server/container/method.dart';
 import 'package:spark_rest/src/server/container/request.dart';
 import 'package:spark_rest/src/server/container/response.dart';
 import 'package:spark_rest/src/server/interface/handlable.dart';
+import 'package:spark_rest/src/server/router/uri.dart';
 
 class MethodRouter extends MapBase<Method, EndpointChain>
     implements Handlable<Response, Request> {
@@ -42,7 +43,6 @@ class MethodRouter extends MapBase<Method, EndpointChain>
     return endpointChain.onHandle(request);
   }
 
-  // TODO: implement
-  static MethodRouter of(final Application application) =>
-      throw UnimplementedError();
+  static MethodRouter of(final Context context, final String uri) =>
+      UriRouter.of(context)[uri]!.methodRouter;
 }
