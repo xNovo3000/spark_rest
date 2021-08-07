@@ -1,8 +1,8 @@
-import 'package:spark_rest/src/new_server/actuator/endpoint.dart';
-import 'package:spark_rest/src/new_server/actuator/middleware.dart';
-import 'package:spark_rest/src/new_server/container/request.dart';
-import 'package:spark_rest/src/new_server/container/response.dart';
-import 'package:spark_rest/src/new_server/interface/handlable.dart';
+import 'package:spark_rest/src/server/actuator/endpoint.dart';
+import 'package:spark_rest/src/server/actuator/middleware.dart';
+import 'package:spark_rest/src/server/container/request.dart';
+import 'package:spark_rest/src/server/container/response.dart';
+import 'package:spark_rest/src/server/interface/handlable.dart';
 
 class EndpointChain implements Handlable<Response, Request> {
   const EndpointChain({

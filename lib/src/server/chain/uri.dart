@@ -1,8 +1,8 @@
-import 'package:spark_rest/src/new_server/actuator/middleware.dart';
-import 'package:spark_rest/src/new_server/container/request.dart';
-import 'package:spark_rest/src/new_server/container/response.dart';
-import 'package:spark_rest/src/new_server/interface/handlable.dart';
-import 'package:spark_rest/src/new_server/router/method.dart';
+import 'package:spark_rest/src/server/actuator/middleware.dart';
+import 'package:spark_rest/src/server/container/request.dart';
+import 'package:spark_rest/src/server/container/response.dart';
+import 'package:spark_rest/src/server/interface/handlable.dart';
+import 'package:spark_rest/src/server/router/method.dart';
 
 class UriChain implements Handlable<Response, Request> {
   const UriChain({

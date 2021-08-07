@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:spark_rest/src/new_server/container/method.dart';
+import 'package:spark_rest/src/server/container/method.dart';
 
 class Request {
   const Request({

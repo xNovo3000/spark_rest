@@ -1,63 +1,51 @@
 import 'dart:io';
 
 import 'package:spark_rest/spark_rest.dart';
+import 'package:spark_rest/src/spark_rest_base.dart';
 
-class RootReqMw extends Middleware<Request> {
+class TestRequestMiddleware extends Middleware<Request> {
   @override
-  Future<Request> onHandle(Request data) async {
-    data.data['test'] = 'test';
-    return data;
+  Future<Request> onHandle(Request param) async {
+    param.container['test'] = 'My test variable';
+    return param;
   }
-
-  @override
-  Future<void> onInit(final Router router) async {
-    print('loaded middleware one time');
-  }
-
-  @override
-  bool Function(String method, String uri) get appendOverride =>
-      (method, uri) => true;
 }
 
-class RootEp extends Endpoint {
-  RootEp()
-      : super(
-          method: 'GET',
-          uri: '/',
-        );
-
+class TestRootEndpoint extends Endpoint {
   @override
   Future<Response> onHandle(Request request) async {
-    print(request.data.length);
-    return Response.ok(
+    return Response(
       request: request,
+      statusCode: 200,
+      headers: {},
       contentType: ContentType.text,
-      body: 'Hello world',
+      body: request.container['test'] ?? 'No variable',
     );
   }
 }
 
-class TestEp extends Endpoint {
-  TestEp()
-      : super(
-          method: 'GET',
-          uri: '/test',
-        );
-
+class TestMiddlewarelessEndpoint extends Endpoint {
   @override
   Future<Response> onHandle(Request request) async {
-    print(request.data.length);
-    return Response.ok(
+    return Response(
       request: request,
+      statusCode: 200,
+      headers: {},
       contentType: ContentType.text,
-      body: 'Test endpoint 2',
+      body: request.container['test'] ?? 'No variable',
     );
   }
 }
 
-Future main() => sparkBoot(requestMiddlewares: {
-      'root': RootReqMw(),
-    }, endpoints: [
-      RootEp(),
-      TestEp(),
-    ]);
+class MyApplication extends Application {
+  @override
+  Future<void> onInit(Application application) {
+    registerEndpoint('/', Method.get, TestRootEndpoint());
+    registerEndpoint('/test', Method.get, TestMiddlewarelessEndpoint());
+    registerSingleMiddleware('/', Method.get,
+        MiddlewareAttachType.whenUriHasBeenExtracted, TestRequestMiddleware());
+    return super.onInit(application);
+  }
+}
+
+Future main() => boot(application: MyApplication());
