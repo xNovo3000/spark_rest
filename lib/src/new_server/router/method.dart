@@ -6,8 +6,8 @@ import 'package:spark_rest/src/new_server/container/request.dart';
 import 'package:spark_rest/src/new_server/container/response.dart';
 import 'package:spark_rest/src/new_server/interface/handlable.dart';
 
-class MethodRouter extends MapBase<Method, EndpointChain> implements Handlable<Response, Request> {
-
+class MethodRouter extends MapBase<Method, EndpointChain>
+    implements Handlable<Response, Request> {
   final Map<Method, EndpointChain> _map = HashMap();
 
   @override
@@ -20,7 +20,6 @@ class MethodRouter extends MapBase<Method, EndpointChain> implements Handlable<R
   void clear() => _map.clear();
 
   @override
-  // TODO: implement keys
   Iterable<Method> get keys => _map.keys;
 
   @override
@@ -33,7 +32,6 @@ class MethodRouter extends MapBase<Method, EndpointChain> implements Handlable<R
       // TODO: return error response
       throw Error();
     }
-    return await endpointChain.onHandle(param);
+    return endpointChain.onHandle(param);
   }
-  
 }

@@ -5,8 +5,8 @@ import 'package:spark_rest/src/new_server/container/request.dart';
 import 'package:spark_rest/src/new_server/container/response.dart';
 import 'package:spark_rest/src/new_server/interface/handlable.dart';
 
-class UriRouter extends MapBase<String, UriChain> implements Handlable<Response, Request> {
-
+class UriRouter extends MapBase<String, UriChain>
+    implements Handlable<Response, Request> {
   final Map<String, UriChain> _map = HashMap();
 
   @override
@@ -31,7 +31,6 @@ class UriRouter extends MapBase<String, UriChain> implements Handlable<Response,
       // TODO: return error response
       throw Error();
     }
-    return await uriChain.onHandle(param);
+    return uriChain.onHandle(param);
   }
-  
 }

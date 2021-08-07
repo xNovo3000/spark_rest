@@ -5,16 +5,15 @@ import 'package:spark_rest/src/new_server/container/response.dart';
 import 'package:spark_rest/src/new_server/interface/handlable.dart';
 
 class EndpointChain implements Handlable<Response, Request> {
-
   const EndpointChain({
     required this.requestMiddlewares,
     required this.endpoint,
     required this.responseMiddlewares,
   });
 
-  final List<Middleware<Request, Request>> requestMiddlewares;
+  final List<Middleware<Request>> requestMiddlewares;
   final Endpoint endpoint;
-  final List<Middleware<Response, Response>> responseMiddlewares;
+  final List<Middleware<Response>> responseMiddlewares;
 
   @override
   Future<Response> onHandle(Request param) async {
@@ -27,5 +26,4 @@ class EndpointChain implements Handlable<Response, Request> {
     }
     return response;
   }
-  
 }

@@ -5,13 +5,12 @@ import 'package:spark_rest/src/new_server/interface/handlable.dart';
 import 'package:spark_rest/src/new_server/router/method.dart';
 
 class UriChain implements Handlable<Response, Request> {
-
   const UriChain({
     required this.middlewares,
     required this.methodRouter,
   });
 
-  final List<Middleware<Request, Request>> middlewares;
+  final List<Middleware<Request>> middlewares;
   final MethodRouter methodRouter;
 
   @override
@@ -19,7 +18,6 @@ class UriChain implements Handlable<Response, Request> {
     for (var middleware in middlewares) {
       param = await middleware.onHandle(param);
     }
-    return await methodRouter.onHandle(param);
+    return methodRouter.onHandle(param);
   }
-  
 }
