@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:spark_rest/src/server/container/request.dart';
 
+/// A convenience class that contains an HTTP response
 class Response {
+  /// Constructor
   const Response({
     required this.request,
     required this.statusCode,
@@ -11,10 +13,19 @@ class Response {
     required this.body,
   });
 
+  /// The request that generated this response
   final Request request;
+
+  /// The HTTP status code
   final int statusCode;
+
+  /// The headers to append to the response
   final Map<String, dynamic> headers;
+
+  /// The [ContentType] of the response
   final ContentType contentType;
+
+  /// The body of the response
   final String body;
 
   @override

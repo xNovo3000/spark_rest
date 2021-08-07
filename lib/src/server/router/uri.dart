@@ -7,6 +7,7 @@ import 'package:spark_rest/src/server/container/request.dart';
 import 'package:spark_rest/src/server/container/response.dart';
 import 'package:spark_rest/src/server/interface/handlable.dart';
 
+/// A [Map] specialized to handle Uris
 class UriRouter extends MapBase<String, UriChain>
     implements Handlable<Response, Request> {
   final Map<String, UriChain> _map = HashMap();
@@ -41,6 +42,7 @@ class UriRouter extends MapBase<String, UriChain>
     return uriChain.onHandle(request);
   }
 
+  /// Convenience method that retrieves an [UriRouter] from a [Context]
   static UriRouter of(final Context context) =>
       context.findInstanceOfType<UriRouter>();
 }

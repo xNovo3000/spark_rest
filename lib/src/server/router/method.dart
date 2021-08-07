@@ -9,6 +9,7 @@ import 'package:spark_rest/src/server/container/response.dart';
 import 'package:spark_rest/src/server/interface/handlable.dart';
 import 'package:spark_rest/src/server/router/uri.dart';
 
+/// A [Map] specialized to handle HTTP methods
 class MethodRouter extends MapBase<Method, EndpointChain>
     implements Handlable<Response, Request> {
   final Map<Method, EndpointChain> _map = HashMap();
@@ -43,6 +44,8 @@ class MethodRouter extends MapBase<Method, EndpointChain>
     return endpointChain.onHandle(request);
   }
 
+  /// Convenience method that retrieves a [MethodRouter]
+  /// from a [Context] with a specified [Uri]
   static MethodRouter of(final Context context, final String uri) =>
       UriRouter.of(context)[uri]!.methodRouter;
 }

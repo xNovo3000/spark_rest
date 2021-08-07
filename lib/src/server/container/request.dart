@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:spark_rest/src/server/container/method.dart';
 
+/// A convenience class that contains an HTTP request
 class Request {
+  /// Constructor
   const Request({
     required this.uri,
     required this.method,
@@ -11,10 +13,21 @@ class Request {
     required this.container,
   });
 
+  /// The [Uri] of the request
   final Uri uri;
+
+  /// The [Method] of the request
   final Method method;
+
+  /// The headers of the request
   final HttpHeaders headers;
+
+  /// The body of the request
   final String body;
+
+  /// A container for all variables
+  ///
+  /// It is used to communicate between middlewares and endpoints
   final Map<String, dynamic> container;
 
   @override

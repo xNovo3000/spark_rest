@@ -17,11 +17,13 @@ import 'package:spark_rest/src/server/interface/initializable.dart';
 import 'package:spark_rest/src/server/router/method.dart';
 import 'package:spark_rest/src/server/router/uri.dart';
 
+/// The starting point of a SparkREST application
 abstract class Application
     implements Initializable, Handlable<Response, Request> {
   final UriRouter _router = UriRouter();
   final _ServerOptimizedContext _context = _ServerOptimizedContext();
 
+  /// Used to register and endpoint
   void registerEndpoint(
       final String uri, final Method method, final Endpoint endpoint) {
     _router
@@ -37,6 +39,7 @@ abstract class Application
     _context.register(endpoint);
   }
 
+  /// Used to register a [Middleware] in a single location
   void registerSingleMiddleware<T>(final String? uri, final Method? method,
       final MiddlewareAttachType attachType, final Middleware<T> middleware) {
     switch (attachType) {
@@ -67,6 +70,7 @@ abstract class Application
     _context.register(middleware);
   }
 
+  /// Used to register a [Middleware] in multiple location based on [Middleware.attachTo]
   void registerWidespreadMiddleware<T>(
       final MiddlewareAttachType attachType, final Middleware<T> middleware) {
     switch (attachType) {
@@ -107,12 +111,15 @@ abstract class Application
     _context.register(middleware);
   }
 
+  /// Used to register a Plugin
   void registerPlugin(final Plugin plugin) =>
       print('Plugins are not available in this version');
 
+  /// Used to register an enviromental variable
   void registerEnviromentalVariable(Object variable) =>
       _context.register(variable);
 
+  /// Registers everything. Do not call and/or override this method. Use [onInit] instead
   Future<void> onInitServer() async {
     // register the router in the context (must be the first)
     _context.register(_router);

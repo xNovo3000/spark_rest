@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1
+
+- Added documentation
+
 ## 0.2.0
 
 - Changed entire codebase. Every application written in SparkREST 0.1.x needs rewrite.

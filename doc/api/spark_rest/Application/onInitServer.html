@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the onInitServer method from the Application class, for the Dart programming language.">
+  <title>onInitServer method - Application class - spark_rest library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../static-assets/github.css">
+  <link rel="stylesheet" href="../../static-assets/styles.css">
+  <link rel="icon" href="../../static-assets/favicon.png">
+
+  
+</head>
+
+
+<body data-base-href="../../"
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">spark_rest</a></li>
+    <li><a href="../../spark_rest/spark_rest-library.html">spark_rest</a></li>
+    <li><a href="../../spark_rest/Application-class.html">Application</a></li>
+    <li class="self-crumb">onInitServer method</li>
+  </ol>
+  <div class="self-name">onInitServer</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../../index.html">spark_rest</a></li>
+  <li><a href="../../spark_rest/spark_rest-library.html">spark_rest</a></li>
+  <li><a href="../../spark_rest/Application-class.html">Application</a></li>
+  <li class="self-crumb">onInitServer method</li>
+</ol>
+
+
+    <h5>Application class</h5>
+    <ol>
+
+    <li class="section-title"><a href="../../spark_rest/Application-class.html#constructors">Constructors</a></li>
+    <li><a href="../../spark_rest/Application/Application.html">Application</a></li>
+
+
+    <li class="section-title inherited">
+      <a href="../../spark_rest/Application-class.html#instance-properties">Properties</a>
+    </li>
+    <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/hashCode.html">hashCode</a></li>
+    <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/runtimeType.html">runtimeType</a></li>
+
+    <li class="section-title"><a href="../../spark_rest/Application-class.html#instance-methods">Methods</a></li>
+    <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+    <li><a href="../../spark_rest/Application/onHandle.html">onHandle</a></li>
+    <li class="inherited"><a href="../../spark_rest/Application/onInit.html">onInit</a></li>
+    <li><a href="../../spark_rest/Application/onInitServer.html">onInitServer</a></li>
+    <li><a href="../../spark_rest/Application/registerEndpoint.html">registerEndpoint</a></li>
+    <li><a href="../../spark_rest/Application/registerEnviromentalVariable.html">registerEnviromentalVariable</a></li>
+    <li><a href="../../spark_rest/Application/registerPlugin.html">registerPlugin</a></li>
+    <li><a href="../../spark_rest/Application/registerSingleMiddleware.html">registerSingleMiddleware</a></li>
+    <li><a href="../../spark_rest/Application/registerWidespreadMiddleware.html">registerWidespreadMiddleware</a></li>
+    <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/toString.html">toString</a></li>
+
+    <li class="section-title inherited"><a href="../../spark_rest/Application-class.html#operators">Operators</a></li>
+    <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/operator_equals.html">operator ==</a></li>
+
+
+
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-method">onInitServer</span> method 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+
+<span class="returntype"><a href="https://api.dart.dev/stable/2.13.4/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+<span class="name ">onInitServer</span>(<wbr>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Registers everything. Do not call and/or override this method. Use <a href="../../spark_rest/Application/onInit.html">onInit</a> instead</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; onInitServer() async {
+  &#47;&#47; register the router in the context (must be the first)
+  _context.register(_router);
+  &#47;&#47; register all user endpoints and middlewares
+  await onInit(_context);
+  &#47;&#47; handle all already loaded middlewares
+  Set&lt;Middleware&lt;Request&gt;&gt; alreadyLoadedRequestMiddlewares = HashSet();
+  Set&lt;Middleware&lt;Response&gt;&gt; alreadyLoadedResponseMiddlewares = HashSet();
+  &#47;&#47; load everything
+  for (var a1 in _router.entries) {
+    for (var middleware in a1.value.middlewares) {
+      if (!alreadyLoadedRequestMiddlewares.contains(middleware)) {
+        await middleware.onInit(_context);
+        alreadyLoadedRequestMiddlewares.add(middleware);
+      }
+    }
+    for (var a2 in a1.value.methodRouter.entries) {
+      for (var middleware in a2.value.requestMiddlewares) {
+        if (!alreadyLoadedRequestMiddlewares.contains(middleware)) {
+          await middleware.onInit(_context);
+          alreadyLoadedRequestMiddlewares.add(middleware);
+        }
+      }
+      for (var middleware in a2.value.responseMiddlewares) {
+        if (!alreadyLoadedResponseMiddlewares.contains(middleware)) {
+          await middleware.onInit(_context);
+          alreadyLoadedResponseMiddlewares.add(middleware);
+        }
+      }
+      await a2.value.endpoint.onInit(_context);
+    }
+  }
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    spark_rest
+      0.2.1
+  </span>
+
+  
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js"></script>
+<script src="../../static-assets/script.js"></script>
+
+
+
+</body>
+
+</html>
+

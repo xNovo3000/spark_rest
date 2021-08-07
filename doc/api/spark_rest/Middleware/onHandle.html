@@ -67,16 +67,14 @@
     <li class="section-title">
       <a href="../../spark_rest/Middleware-class.html#instance-properties">Properties</a>
     </li>
-    <li><a href="../../spark_rest/Middleware/appendAtBegin.html">appendAtBegin</a></li>
-    <li><a href="../../spark_rest/Middleware/appendOverride.html">appendOverride</a></li>
+    <li><a href="../../spark_rest/Middleware/attachTo.html">attachTo</a></li>
+    <li><a href="../../spark_rest/Middleware/clone.html">clone</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/runtimeType.html">runtimeType</a></li>
-    <li><a href="../../spark_rest/Middleware/singleton.html">singleton</a></li>
 
     <li class="section-title"><a href="../../spark_rest/Middleware-class.html#instance-methods">Methods</a></li>
-    <li><a href="../../spark_rest/Middleware/clone.html">clone</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li><a href="../../spark_rest/Middleware/onHandle.html">onHandle</a></li>
+    <li class="inherited"><a href="../../spark_rest/Middleware/onHandle.html">onHandle</a></li>
     <li><a href="../../spark_rest/Middleware/onInit.html">onInit</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/toString.html">toString</a></li>
 
@@ -100,27 +98,23 @@
       
 
 <span class="returntype"><a href="https://api.dart.dev/stable/2.13.4/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>
-<span class="name ">onHandle</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="onHandle-param-data"><span class="type-annotation">T</span> <span class="parameter-name">data</span></span></li>
+<span class="name ">onHandle</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="onHandle-param-param"><span class="type-annotation">T</span> <span class="parameter-name">param</span></span></li>
 </ol>)
 
-      
+      <div class="features">inherited</div>
 
     </section>
     
 <section class="desc markdown">
-  <p>Executed every time a <a href="../../spark_rest/Request-class.html">Request</a> or a <a href="../../spark_rest/Response-class.html">Response</a> should pass in this <a href="../../spark_rest/Middleware-class.html">Middleware</a></p>
-<p>If you are in a request middleware and you don't want to pass the request to the endpoint,
-then throw a <a href="../../spark_rest/Response-class.html">Response</a> error.</p>
-<pre class="language-dart"><code class="language-dart">throw Response(...);
-</code></pre>
-<p>Do not call this function on purpose.</p>
+  <p>Called every time an handling is needed.</p>
+<p>Do not call this function, it is called from SparkREST from you.</p>
 </section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">Future&lt;T&gt; onHandle(final T data);</code></pre>
+  <pre class="language-dart"><code class="language-dart">Future&lt;R&gt; onHandle(final P param);</code></pre>
 </section>
 
 
@@ -134,7 +128,7 @@ then throw a <a href="../../spark_rest/Response-class.html">Response</a> error.<
 <footer>
   <span class="no-break">
     spark_rest
-      0.1.0
+      0.2.1
   </span>
 
   
