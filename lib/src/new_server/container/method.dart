@@ -1,15 +1,10 @@
 /// The class that contains all HTTP methods
-///
-/// This class is still work-in-progress and it is not been implemented already.
-/// Do not use this class for the moment.
 class Method {
   /// Returns the method class from the name of the method
   factory Method.fromValue(final String value) =>
       values.singleWhere((method) => method.name == value);
 
   /// Const private constructor
-  ///
-  /// No one can create custom methods
   const Method._({
     required this.name,
   });
