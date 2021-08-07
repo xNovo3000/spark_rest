@@ -6,6 +6,10 @@ This package was created after the deprecation of Aqueduct. It is designed to be
 
 ---
 
+## [WARN] SparkREST 0.2.x changed the entire codebase
+
+---
+
 ### Package objectives
 
 - Simple to use
