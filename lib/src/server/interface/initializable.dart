@@ -1,5 +1,5 @@
-import 'package:spark_rest/src/server/actuator/application.dart';
+import 'package:spark_rest/src/server/container/context.dart';
 
 abstract class Initializable {
-  Future<void> onInit(final Application application);
+  Future<void> onInit(final Context context);
 }

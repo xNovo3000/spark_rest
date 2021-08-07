@@ -2,10 +2,12 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:spark_rest/src/addon/plugin.dart';
 import 'package:spark_rest/src/server/actuator/endpoint.dart';
 import 'package:spark_rest/src/server/actuator/middleware.dart';
 import 'package:spark_rest/src/server/chain/endpoint.dart';
 import 'package:spark_rest/src/server/chain/uri.dart';
+import 'package:spark_rest/src/server/container/context.dart';
 import 'package:spark_rest/src/server/container/method.dart';
 import 'package:spark_rest/src/server/container/middleware_attach_type.dart';
 import 'package:spark_rest/src/server/container/request.dart';
@@ -18,6 +20,7 @@ import 'package:spark_rest/src/server/router/uri.dart';
 abstract class Application
     implements Initializable, Handlable<Response, Request> {
   final UriRouter _router = UriRouter();
+  final _ServerOptimizedContext _context = _ServerOptimizedContext();
 
   void registerEndpoint(
       final String uri, final Method method, final Endpoint endpoint) {
@@ -31,6 +34,7 @@ abstract class Application
                 requestMiddlewares: [],
                 endpoint: endpoint,
                 responseMiddlewares: []));
+    _context.register(endpoint);
   }
 
   void registerSingleMiddleware<T>(final String? uri, final Method? method,
@@ -60,6 +64,7 @@ abstract class Application
             .add(middleware as Middleware<Response>);
         break;
     }
+    _context.register(middleware);
   }
 
   void registerWidespreadMiddleware<T>(
@@ -99,35 +104,45 @@ abstract class Application
         }
         break;
     }
+    _context.register(middleware);
   }
 
-  void registerPlugin() {}
+  void registerPlugin(final Plugin plugin) =>
+      print('Plugins are not available in this version');
 
-  @override
-  Future<void> onInit(final Application application) async {
+  void registerEnviromentalVariable(Object variable) =>
+      _context.register(variable);
+
+  Future<void> onInitServer() async {
+    // register the router in the context (must be the first)
+    _context.register(_router);
+    // register all user endpoints and middlewares
+    await onInit(_context);
+    // handle all already loaded middlewares
     Set<Middleware<Request>> alreadyLoadedRequestMiddlewares = HashSet();
     Set<Middleware<Response>> alreadyLoadedResponseMiddlewares = HashSet();
+    // load everything
     for (var a1 in _router.entries) {
       for (var middleware in a1.value.middlewares) {
         if (!alreadyLoadedRequestMiddlewares.contains(middleware)) {
-          await middleware.onInit(application);
+          await middleware.onInit(_context);
           alreadyLoadedRequestMiddlewares.add(middleware);
         }
       }
       for (var a2 in a1.value.methodRouter.entries) {
         for (var middleware in a2.value.requestMiddlewares) {
           if (!alreadyLoadedRequestMiddlewares.contains(middleware)) {
-            await middleware.onInit(application);
+            await middleware.onInit(_context);
             alreadyLoadedRequestMiddlewares.add(middleware);
           }
         }
         for (var middleware in a2.value.responseMiddlewares) {
           if (!alreadyLoadedResponseMiddlewares.contains(middleware)) {
-            await middleware.onInit(application);
+            await middleware.onInit(_context);
             alreadyLoadedResponseMiddlewares.add(middleware);
           }
         }
-        await a2.value.endpoint.onInit(application);
+        await a2.value.endpoint.onInit(_context);
       }
     }
   }
@@ -147,4 +162,17 @@ abstract class Application
           body: json.encode({'error': '$error'}));
     }
   }
+}
+
+class _ServerOptimizedContext extends Context {
+  final List _objects = [];
+
+  void register(Object object) =>
+      _objects.contains(object) ? null : _objects.add(object);
+
+  @override
+  T findInstanceOfType<T>() => _objects.whereType<T>().first;
+
+  @override
+  Iterable<T> findInstancesOfType<T>() => _objects.whereType<T>();
 }

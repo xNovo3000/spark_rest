@@ -39,12 +39,11 @@ class TestMiddlewarelessEndpoint extends Endpoint {
 
 class MyApplication extends Application {
   @override
-  Future<void> onInit(Application application) {
+  Future<void> onInit(Context context) async {
     registerEndpoint('/', Method.get, TestRootEndpoint());
     registerEndpoint('/test', Method.get, TestMiddlewarelessEndpoint());
     registerSingleMiddleware('/', Method.get,
         MiddlewareAttachType.whenUriHasBeenExtracted, TestRequestMiddleware());
-    return super.onInit(application);
   }
 }
 

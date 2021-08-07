@@ -12,3 +12,5 @@ export 'src/server/container/response.dart';
 export 'src/server/container/middleware_attach_type.dart';
 export 'src/server/router/method.dart';
 export 'src/server/router/uri.dart';
+export 'src/server/container/context.dart';
+export 'src/addon/plugin.dart';
