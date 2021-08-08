@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
@@ -7,7 +6,6 @@ import 'package:spark_rest/src/server/actuator/endpoint.dart';
 import 'package:spark_rest/src/server/actuator/middleware.dart';
 import 'package:spark_rest/src/server/chain/endpoint.dart';
 import 'package:spark_rest/src/server/chain/uri.dart';
-import 'package:spark_rest/src/server/container/context.dart';
 import 'package:spark_rest/src/server/container/context.dart';
 import 'package:spark_rest/src/server/container/method.dart';
 import 'package:spark_rest/src/server/container/middleware_attach_type.dart';
@@ -21,8 +19,17 @@ import 'package:spark_rest/src/server/router/uri.dart';
 /// The starting point of a SparkREST application
 abstract class Application
     implements Initializable, Handlable<Response, Request> {
-  final UriRouter _router = UriRouter();
-  final _ServerOptimizedContext _context = _ServerOptimizedContext();
+  /// Constructor
+  ///
+  /// If you want you can implement custom [UriRouter] and [Context]
+  Application({
+    UriRouter? uriRouter,
+    Context? context,
+  })  : _router = uriRouter ?? UriRouter(),
+        _context = context ?? _ServerOptimizedContext();
+
+  final UriRouter _router;
+  final Context _context;
 
   /// Used to register and endpoint
   void registerEndpoint(
@@ -146,6 +153,7 @@ abstract class Application
     }
   }
 
+  /// Retrieves the [Context] of this [Application]
   Context get context => _context;
 }
 
