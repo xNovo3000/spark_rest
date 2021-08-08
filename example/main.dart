@@ -44,6 +44,7 @@ class MyApplication extends Application {
     registerEndpoint('/test', Method.get, TestMiddlewarelessEndpoint());
     registerSingleMiddleware('/', Method.get,
         MiddlewareAttachType.whenUriHasBeenExtracted, TestRequestMiddleware());
+    return super.onInit(context);
   }
 }
 

@@ -12,7 +12,7 @@ Future boot({
   int port = 8080,
 }) =>
     HttpServer.bind(InternetAddress.anyIPv4, port).then((server) async {
-      await application.onInitServer();
+      await application.onInit(application.context);
       server.listen((httpRequest) async {
         var request = Request(
             method: Method.fromValue(httpRequest.method),

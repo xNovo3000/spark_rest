@@ -8,6 +8,7 @@ import 'package:spark_rest/src/server/actuator/middleware.dart';
 import 'package:spark_rest/src/server/chain/endpoint.dart';
 import 'package:spark_rest/src/server/chain/uri.dart';
 import 'package:spark_rest/src/server/container/context.dart';
+import 'package:spark_rest/src/server/container/context.dart';
 import 'package:spark_rest/src/server/container/method.dart';
 import 'package:spark_rest/src/server/container/middleware_attach_type.dart';
 import 'package:spark_rest/src/server/container/request.dart';
@@ -112,45 +113,20 @@ abstract class Application
   }
 
   /// Used to register a Plugin
-  void registerPlugin(final Plugin plugin) =>
-      print('Plugins are not available in this version');
+  void registerPlugin(final Plugin plugin) => _context.register(plugin);
 
   /// Used to register an enviromental variable
   void registerEnviromentalVariable(Object variable) =>
       _context.register(variable);
 
-  /// Registers everything. Do not call and/or override this method. Use [onInit] instead
-  Future<void> onInitServer() async {
+  @override
+  Future<void> onInit(Context context) async {
     // register the router in the context (must be the first)
     _context.register(_router);
-    // register all user endpoints and middlewares
-    await onInit(_context);
-    // handle all already loaded middlewares
-    Set<Middleware<Request>> alreadyLoadedRequestMiddlewares = HashSet();
-    Set<Middleware<Response>> alreadyLoadedResponseMiddlewares = HashSet();
-    // load everything
-    for (var a1 in _router.entries) {
-      for (var middleware in a1.value.middlewares) {
-        if (!alreadyLoadedRequestMiddlewares.contains(middleware)) {
-          await middleware.onInit(_context);
-          alreadyLoadedRequestMiddlewares.add(middleware);
-        }
-      }
-      for (var a2 in a1.value.methodRouter.entries) {
-        for (var middleware in a2.value.requestMiddlewares) {
-          if (!alreadyLoadedRequestMiddlewares.contains(middleware)) {
-            await middleware.onInit(_context);
-            alreadyLoadedRequestMiddlewares.add(middleware);
-          }
-        }
-        for (var middleware in a2.value.responseMiddlewares) {
-          if (!alreadyLoadedResponseMiddlewares.contains(middleware)) {
-            await middleware.onInit(_context);
-            alreadyLoadedResponseMiddlewares.add(middleware);
-          }
-        }
-        await a2.value.endpoint.onInit(_context);
-      }
+    // init all Initializable objects
+    var initializableObjects = _context.findInstancesOfType<Initializable>();
+    for (var initializableObject in initializableObjects) {
+      await initializableObject.onInit(_context);
     }
   }
 
@@ -169,11 +145,14 @@ abstract class Application
           body: json.encode({'error': '$error'}));
     }
   }
+
+  Context get context => _context;
 }
 
 class _ServerOptimizedContext extends Context {
   final List _objects = [];
 
+  @override
   void register(Object object) =>
       _objects.contains(object) ? null : _objects.add(object);
 
