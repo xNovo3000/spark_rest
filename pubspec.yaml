@@ -1,6 +1,6 @@
 name: spark_rest
 description: A blazing-fast, single instance, sessionless RESTful API for Dart
-version: 0.2.1
+version: 0.3.0
 repository: https://github.com/xNovo3000/spark_rest
 
 environment:
