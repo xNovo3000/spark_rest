@@ -13,8 +13,10 @@ import 'package:spark_rest/src/server/foundation/context.dart';
 import 'package:spark_rest/src/server/interface/handlable.dart';
 import 'package:spark_rest/src/server/interface/initializable.dart';
 
+/// The base of a Spark server
 abstract class Application implements Initializable, Handlable<Request, Response> {
 
+  /// Factory constructor
   factory Application({
     List<Middleware<Request>>? requestMiddlewares,
     List<Endpoint> endpoints = const [],
@@ -27,11 +29,6 @@ abstract class Application implements Initializable, Handlable<Request, Response
     plugins: plugins,
   );
 
-  Iterable<Middleware<Request>> get requestMiddlewares;
-  Iterable<Endpoint> get endpoints;
-  Iterable<Middleware<Response>> get responseMiddlewares;
-  Iterable<Plugin> get plugins;
-
 }
 
 class _ApplicationV1 implements Application {
@@ -43,13 +40,9 @@ class _ApplicationV1 implements Application {
     required this.plugins,
   });
 
-  @override
   final List<Middleware<Request>> requestMiddlewares;
-  @override
   final List<Endpoint> endpoints;
-  @override
   final List<Middleware<Response>> responseMiddlewares;
-  @override
   final List<Plugin> plugins;
 
   late UriRouter uriRouter;

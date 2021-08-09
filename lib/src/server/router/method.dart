@@ -9,6 +9,7 @@ import 'package:spark_rest/src/server/container/response.dart';
 import 'package:spark_rest/src/server/foundation/context.dart';
 import 'package:spark_rest/src/server/interface/handlable.dart';
 
+/// Convenience class that can dispatch HTTP methods
 class MethodRouter extends MapBase<Method, EndpointChain>
     implements Handlable<Request, Response> {
 
@@ -44,6 +45,7 @@ class MethodRouter extends MapBase<Method, EndpointChain>
     return endpointChain.onHandle(request);
   }
 
+  /// Convenience method used to get the [MethodRouter] from a [Context]
   static MethodRouter of(Context context, String uri) =>
       UriRouter.of(context)[uri]!;
 

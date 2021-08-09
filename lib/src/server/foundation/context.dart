@@ -4,24 +4,38 @@ import 'package:spark_rest/src/server/container/request.dart';
 import 'package:spark_rest/src/server/container/response.dart';
 import 'package:spark_rest/src/server/router/uri.dart';
 
+/// Contains all the environment variables of the application
 abstract class Context {
 
+  /// Factory constructor
   factory Context() => _ContextV1();
 
+  /// Used to register an element in the context
   void register<T>(T element);
 
+  /// Used to find an object of type [T]
+  ///
+  /// If there are more objects of type [T], a [StateError] is thrown
   T findObjectOfType<T>();
 
+  /// Used to find all objects of type [T]
   Iterable<T> findObjectsOfType<T>();
 
+  /// Given a [Middleware] instance, finds the attached [Endpoint]
   Endpoint findAttachedEndpoint<T>(Middleware<T> middleware);
 
+  /// Given a [Endpoint] instance, finds the
+  /// attached request [Middleware] of subtype [T]
   T findAttachedRequestMiddlewareOfType<T extends Middleware<Request>>(Endpoint endpoint);
 
+  /// Given a [Endpoint] instance, finds the
+  /// attached response [Middleware] of subtype [T]
   T findAttachedResponseMiddlewareOfType<T extends Middleware<Response>>(Endpoint endpoint);
 
+  /// Given a [Endpoint] instance, finds all the attached request middlewares
   Iterable<Middleware<Request>> findAttachedRequestMiddlewares(Endpoint endpoint);
 
+  /// Given a [Endpoint] instance, finds all the attached response middlewares
   Iterable<Middleware<Response>> findAttachedResponseMiddlewares(Endpoint endpoint);
 
 }
@@ -34,7 +48,7 @@ class _ContextV1 implements Context {
   void register<T>(T element) => objects.add(element);
 
   @override
-  T findObjectOfType<T>() => objects.whereType<T>().first;
+  T findObjectOfType<T>() => objects.whereType<T>().single;
 
   @override
   Iterable<T> findObjectsOfType<T>() => objects.whereType<T>();

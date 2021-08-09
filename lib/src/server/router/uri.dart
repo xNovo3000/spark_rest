@@ -7,6 +7,7 @@ import 'package:spark_rest/src/server/container/request.dart';
 import 'package:spark_rest/src/server/container/response.dart';
 import 'package:spark_rest/src/server/interface/handlable.dart';
 
+/// Convenience class that can dispatch uris
 class UriRouter extends MapBase<String, MethodRouter>
     implements Handlable<Request, Response> {
 
@@ -42,6 +43,7 @@ class UriRouter extends MapBase<String, MethodRouter>
     return methodRouter.onHandle(request);
   }
 
+  /// Convenience method used to get the [UriRouter] from a [Context]
   static UriRouter of(Context context) =>
       context.findObjectOfType<UriRouter>();
 
