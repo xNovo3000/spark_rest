@@ -4,7 +4,7 @@ import 'package:spark_rest/src/server/actuator/middleware.dart';
 
 abstract class Plugin {
 
-  Iterable<Middleware<Request>> get requestMiddlewares;
-  Iterable<Middleware<Response>> get responseMiddlewares;
+  Iterable<Middleware<Request>> get requestMiddlewares => const [];
+  Iterable<Middleware<Response>> get responseMiddlewares => const [];
 
 }

@@ -16,14 +16,14 @@ import 'package:spark_rest/src/server/interface/initializable.dart';
 abstract class Application implements Initializable, Handlable<Request, Response> {
 
   factory Application({
-    List<Middleware<Request>> requestMiddlewares = const [],
+    List<Middleware<Request>>? requestMiddlewares,
     List<Endpoint> endpoints = const [],
-    List<Middleware<Response>> responseMiddlewares = const [],
+    List<Middleware<Response>>? responseMiddlewares,
     List<Plugin> plugins = const [],
   }) => _ApplicationV1(
-    requestMiddlewares: requestMiddlewares,
+    requestMiddlewares: requestMiddlewares ?? [],
     endpoints: endpoints,
-    responseMiddlewares: responseMiddlewares,
+    responseMiddlewares: responseMiddlewares ?? [],
     plugins: plugins,
   );
 

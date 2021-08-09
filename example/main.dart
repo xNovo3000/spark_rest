@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:spark_rest/spark_rest.dart';
+import 'package:spark_rest/src/server/actuator/plugin.dart';
 
 class RootEndpoint extends Endpoint {
 
@@ -61,7 +62,16 @@ class MyRequestMiddleware extends Middleware<Request> {
 
 }
 
+class MyPlugin extends Plugin {
+
+  @override
+  Iterable<Middleware<Request>> get requestMiddlewares =>
+      [MyRequestMiddleware()];
+
+}
+
 Future main() => boot(application: Application(
-  requestMiddlewares: [MyRequestMiddleware()],
+  requestMiddlewares: [],
   endpoints: [RootEndpoint(), TestEndpoint()],
+  plugins: [MyPlugin()]
 ));
