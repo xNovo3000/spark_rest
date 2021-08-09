@@ -16,7 +16,7 @@ abstract class Middleware<T> implements Initializable, Handlable<T, T> {
       (uri, method) => false;
 
   void Function(List<Middleware<T>> list) get attachFunction =>
-      (list) => list.add(this);
+      (list) => list.add(clone ?? this);
 
   Middleware<T>? get clone => null;
 

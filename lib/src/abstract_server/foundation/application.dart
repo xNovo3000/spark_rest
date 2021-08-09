@@ -12,9 +12,23 @@ import 'package:spark_rest/src/abstract_server/foundation/context.dart';
 import 'package:spark_rest/src/abstract_server/interface/handlable.dart';
 import 'package:spark_rest/src/abstract_server/interface/initializable.dart';
 
-class Application implements Initializable, Handlable<Request, Response> {
+abstract class Application implements Initializable, Handlable<Request, Response> {
 
-  Application({
+  factory Application({
+    required List<Middleware<Request>> requestMiddlewares,
+    required List<Endpoint> endpoints,
+    required List<Middleware<Response>> responseMiddlewares,
+  }) => _ApplicationV1(
+    requestMiddlewares: requestMiddlewares,
+    endpoints: endpoints,
+    responseMiddlewares: responseMiddlewares,
+  );
+
+}
+
+class _ApplicationV1 implements Application {
+
+  _ApplicationV1({
     required this.requestMiddlewares,
     required this.endpoints,
     required this.responseMiddlewares,
@@ -84,11 +98,11 @@ class Application implements Initializable, Handlable<Request, Response> {
       return response;
     } catch (error) {
       return Response(
-        request: request,
-        statusCode: 500,
-        headers: {},
-        contentType: ContentType.json,
-        body: json.encode({'error': '$error'})
+          request: request,
+          statusCode: 500,
+          headers: {},
+          contentType: ContentType.json,
+          body: json.encode({'error': '$error'})
       );
     }
   }

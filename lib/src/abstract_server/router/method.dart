@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:collection';
 
 import 'package:spark_rest/src/abstract_server/chain/endpoint.dart';
@@ -27,10 +28,16 @@ class MethodRouter extends MapBase<Method, EndpointChain>
   EndpointChain? remove(Object? key) => _map.remove(key);
 
   @override
-  Future<Response> onHandle(Request request) {
+  Future<Response> onHandle(Request request) async {
     var endpointChain = this[request.method];
     if (endpointChain == null) {
-      throw Error(); // TODO: return error response
+      return Response(
+        request: request,
+        statusCode: 404,
+        headers: {},
+        contentType: ContentType.json,
+        body: '{"message":"The uri does not exists"}',
+      );
     }
     return endpointChain.onHandle(request);
   }

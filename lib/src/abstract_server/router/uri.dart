@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:collection';
 
 import 'package:spark_rest/src/abstract_server/router/method.dart';
@@ -26,10 +27,16 @@ class UriRouter extends MapBase<String, MethodRouter>
   MethodRouter? remove(Object? key) => _map.remove(key);
 
   @override
-  Future<Response> onHandle(Request request) {
+  Future<Response> onHandle(Request request) async {
     var methodRouter = this[request.method];
     if (methodRouter == null) {
-      throw Error(); // TODO: return error response
+      return Response(
+        request: request,
+        statusCode: 404,
+        headers: {},
+        contentType: ContentType.json,
+        body: '{"message":"The uri does not exists"}',
+      );
     }
     return methodRouter.onHandle(request);
   }
