@@ -4,6 +4,7 @@
 library spark_rest;
 
 export 'src/spark_rest_base.dart';
+export 'src/server/actuator/plugin.dart';
 export 'src/server/actuator/endpoint.dart';
 export 'src/server/actuator/middleware.dart';
 export 'src/server/container/method.dart';

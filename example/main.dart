@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:spark_rest/spark_rest.dart';
-import 'package:spark_rest/src/server/actuator/plugin.dart';
 
 class RootEndpoint extends Endpoint {
 
