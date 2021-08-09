@@ -4,6 +4,7 @@ import 'package:spark_rest/src/server/container/request.dart';
 
 /// A convenience class that contains an HTTP response
 class Response {
+
   /// Constructor
   const Response({
     required this.request,
@@ -29,19 +30,13 @@ class Response {
   final String body;
 
   @override
-  bool operator ==(Object other) => other is Response
-      ? request == other.request &&
-          statusCode == other.statusCode &&
-          headers == other.headers &&
-          contentType == other.contentType &&
-          body == other.body
-      : false;
+  bool operator ==(Object other) => other is Response ?
+      request == other.request && statusCode == other.statusCode &&
+      headers == other.headers && contentType == other.contentType &&
+      body == other.body : false;
 
   @override
-  int get hashCode =>
-      request.hashCode +
-      statusCode.hashCode +
-      headers.hashCode +
-      contentType.hashCode +
-      body.hashCode;
+  int get hashCode => request.hashCode + statusCode.hashCode +
+          headers.hashCode + contentType.hashCode + body.hashCode;
+
 }

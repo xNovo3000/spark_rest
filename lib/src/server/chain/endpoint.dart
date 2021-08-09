@@ -4,7 +4,8 @@ import 'package:spark_rest/src/server/container/request.dart';
 import 'package:spark_rest/src/server/container/response.dart';
 import 'package:spark_rest/src/server/interface/handlable.dart';
 
-class EndpointChain implements Handlable<Response, Request> {
+class EndpointChain implements Handlable<Request, Response> {
+
   const EndpointChain({
     required this.requestMiddlewares,
     required this.endpoint,
@@ -16,14 +17,15 @@ class EndpointChain implements Handlable<Response, Request> {
   final List<Middleware<Response>> responseMiddlewares;
 
   @override
-  Future<Response> onHandle(Request param) async {
+  Future<Response> onHandle(Request request) async {
     for (var requestMiddleware in requestMiddlewares) {
-      param = await requestMiddleware.onHandle(param);
+      request = await requestMiddleware.onHandle(request);
     }
-    var response = await endpoint.onHandle(param);
+    var response = await endpoint.onHandle(request);
     for (var responseMiddleware in responseMiddlewares) {
       response = await responseMiddleware.onHandle(response);
     }
     return response;
   }
+
 }

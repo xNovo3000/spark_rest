@@ -1,16 +1,16 @@
 import 'dart:io';
 import 'dart:convert';
 
-import 'package:spark_rest/src/abstract_server/chain/endpoint.dart';
-import 'package:spark_rest/src/abstract_server/router/method.dart';
-import 'package:spark_rest/src/abstract_server/router/uri.dart';
-import 'package:spark_rest/src/abstract_server/actuator/endpoint.dart';
-import 'package:spark_rest/src/abstract_server/actuator/middleware.dart';
-import 'package:spark_rest/src/abstract_server/container/request.dart';
-import 'package:spark_rest/src/abstract_server/container/response.dart';
-import 'package:spark_rest/src/abstract_server/foundation/context.dart';
-import 'package:spark_rest/src/abstract_server/interface/handlable.dart';
-import 'package:spark_rest/src/abstract_server/interface/initializable.dart';
+import 'package:spark_rest/src/server/chain/endpoint.dart';
+import 'package:spark_rest/src/server/router/method.dart';
+import 'package:spark_rest/src/server/router/uri.dart';
+import 'package:spark_rest/src/server/actuator/endpoint.dart';
+import 'package:spark_rest/src/server/actuator/middleware.dart';
+import 'package:spark_rest/src/server/container/request.dart';
+import 'package:spark_rest/src/server/container/response.dart';
+import 'package:spark_rest/src/server/foundation/context.dart';
+import 'package:spark_rest/src/server/interface/handlable.dart';
+import 'package:spark_rest/src/server/interface/initializable.dart';
 
 abstract class Application implements Initializable, Handlable<Request, Response> {
 
@@ -98,11 +98,11 @@ class _ApplicationV1 implements Application {
       return response;
     } catch (error) {
       return Response(
-          request: request,
-          statusCode: 500,
-          headers: {},
-          contentType: ContentType.json,
-          body: json.encode({'error': '$error'})
+        request: request,
+        statusCode: 500,
+        headers: {},
+        contentType: ContentType.json,
+        body: json.encode({'error': '$error'})
       );
     }
   }

@@ -1,10 +1,9 @@
 /// The class that contains all HTTP methods
 class Method {
-  /// Returns the method class from the name of the method
-  factory Method.fromValue(final String value) =>
-      values.singleWhere((method) => method.name == value);
 
-  /// Const private constructor
+  /// Returns the method class from the name of the method
+  factory Method.fromValue(final String value) => values[value]!;
+
   const Method._({
     required this.name,
   });
@@ -36,14 +35,15 @@ class Method {
   /// The OPTIONS method
   static const Method options = Method._(name: 'OPTIONS');
 
-  /// A constant List of the values in this enum, in order of their declaration
-  static const List<Method> values = [
-    head,
-    get,
-    post,
-    put,
-    patch,
-    delete,
-    options
-  ];
+  /// A constant Map of the methods
+  static const Map<String, Method> values = {
+    'HEAD': head,
+    'GET': get,
+    'POST': post,
+    'PUT': put,
+    'PATCH': patch,
+    'DELETE': delete,
+    'OPTIONS': options,
+  };
+
 }

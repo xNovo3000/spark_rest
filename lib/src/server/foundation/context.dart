@@ -1,8 +1,8 @@
-import 'package:spark_rest/src/abstract_server/actuator/endpoint.dart';
-import 'package:spark_rest/src/abstract_server/actuator/middleware.dart';
-import 'package:spark_rest/src/abstract_server/container/request.dart';
-import 'package:spark_rest/src/abstract_server/container/response.dart';
-import 'package:spark_rest/src/abstract_server/router/uri.dart';
+import 'package:spark_rest/src/server/actuator/endpoint.dart';
+import 'package:spark_rest/src/server/actuator/middleware.dart';
+import 'package:spark_rest/src/server/container/request.dart';
+import 'package:spark_rest/src/server/container/response.dart';
+import 'package:spark_rest/src/server/router/uri.dart';
 
 abstract class Context {
 
@@ -41,7 +41,7 @@ class _ContextV1 implements Context {
 
   @override
   Endpoint findAttachedEndpoint<T>(Middleware<T> middleware) {
-    final uriRouter = findObjectOfType<UriRouter>();
+    final uriRouter = UriRouter.of(this);
     for (var a1 in uriRouter.entries) {
       for (var a2 in a1.value.entries) {
         if (T == Request) {
@@ -76,7 +76,7 @@ class _ContextV1 implements Context {
 
   @override
   Iterable<Middleware<Request>> findAttachedRequestMiddlewares(Endpoint endpoint) {
-    final uriRouter = findObjectOfType<UriRouter>();
+    final uriRouter = UriRouter.of(this);
     for (var a1 in uriRouter.entries) {
       for (var a2 in a1.value.entries) {
         if (a2.value.endpoint == endpoint) {
@@ -89,7 +89,7 @@ class _ContextV1 implements Context {
 
   @override
   Iterable<Middleware<Response>> findAttachedResponseMiddlewares(Endpoint endpoint) {
-    final uriRouter = findObjectOfType<UriRouter>();
+    final uriRouter = UriRouter.of(this);
     for (var a1 in uriRouter.entries) {
       for (var a2 in a1.value.entries) {
         if (a2.value.endpoint == endpoint) {
