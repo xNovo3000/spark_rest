@@ -19,20 +19,18 @@ Future boot({
       await application.onInit(context);
       server.listen((httpRequest) async {
         var request = Request(
-          method: Method.fromValue(httpRequest.method),
-          uri: httpRequest.uri,
-          headers: httpRequest.headers,
-          body: await utf8.decodeStream(httpRequest),
-          container: {}
-        );
+            method: Method.fromValue(httpRequest.method),
+            uri: httpRequest.uri,
+            headers: httpRequest.headers,
+            body: await utf8.decodeStream(httpRequest),
+            container: {});
         var response = await application.onHandle(request);
         httpRequest.response.statusCode = response.statusCode;
         httpRequest.response.headers.clear();
         httpRequest.response.headers.contentType = response.contentType;
         httpRequest.response.headers.contentLength = response.body.length;
         response.headers.forEach(
-          (key, value) => httpRequest.response.headers.add(key, value)
-        );
+            (key, value) => httpRequest.response.headers.add(key, value));
         httpRequest.response.write(response.body);
         return httpRequest.response.close();
       });

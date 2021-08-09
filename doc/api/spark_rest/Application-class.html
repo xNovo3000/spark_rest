@@ -76,8 +76,6 @@
   <li class="section-title"><a href="../spark_rest/spark_rest-library.html#functions">Functions</a></li>
   <li><a href="../spark_rest/boot.html">boot</a></li>
 
-  <li class="section-title"><a href="../spark_rest/spark_rest-library.html#enums">Enums</a></li>
-  <li><a href="../spark_rest/MiddlewareAttachType-class.html">MiddlewareAttachType</a></li>
 
 
 </ol>
@@ -93,7 +91,7 @@
 
     
 <section class="desc markdown">
-  <p>The starting point of a SparkREST application</p>
+  <p>The base of a Spark server</p>
 </section>
 
 
@@ -103,10 +101,11 @@
 
       <dl class="constructor-summary-list">
         <dt id="Application" class="callable">
-          <span class="name"><a href="../spark_rest/Application/Application.html">Application</a></span><span class="signature">()</span>
+          <span class="name"><a href="../spark_rest/Application/Application.html">Application</a></span><span class="signature">(<span class="parameter" id="-param-requestMiddlewares">{<span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../spark_rest/Middleware-class.html">Middleware</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../spark_rest/Request-class.html">Request</a></span>&gt;</span></span>&gt;</span>?</span> <span class="parameter-name">requestMiddlewares</span>, </span><span class="parameter" id="-param-endpoints"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../spark_rest/Endpoint-class.html">Endpoint</a></span>&gt;</span></span> <span class="parameter-name">endpoints</span> = <span class="default-value">const []</span>, </span><span class="parameter" id="-param-responseMiddlewares"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../spark_rest/Middleware-class.html">Middleware</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../spark_rest/Response-class.html">Response</a></span>&gt;</span></span>&gt;</span>?</span> <span class="parameter-name">responseMiddlewares</span>, </span><span class="parameter" id="-param-plugins"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../spark_rest/Plugin-class.html">Plugin</a></span>&gt;</span></span> <span class="parameter-name">plugins</span> = <span class="default-value">const []</span>}</span>)</span>
         </dt>
         <dd>
-           
+          Factory constructor 
+          <div class="constructor-modifier features">factory</div>
         </dd>
       </dl>
     </section>
@@ -140,7 +139,7 @@
       </dl>
     </section>
 
-    <section class="summary offset-anchor" id="instance-methods">
+    <section class="summary offset-anchor inherited" id="instance-methods">
       <h2>Methods</h2>
       <dl class="callables">
         <dt id="noSuchMethod" class="callable inherited">
@@ -156,16 +155,16 @@
 
 </dd>
 
-        <dt id="onHandle" class="callable">
-  <span class="name"><a href="../spark_rest/Application/onHandle.html">onHandle</a></span><span class="signature">(<wbr><span class="parameter" id="onHandle-param-request"><span class="type-annotation"><a href="../spark_rest/Request-class.html">Request</a></span> <span class="parameter-name">request</span></span>)
+        <dt id="onHandle" class="callable inherited">
+  <span class="name"><a href="../spark_rest/Application/onHandle.html">onHandle</a></span><span class="signature">(<wbr><span class="parameter" id="onHandle-param-param"><span class="type-annotation"><a href="../spark_rest/Request-class.html">Request</a></span> <span class="parameter-name">param</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.13.4/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../spark_rest/Response-class.html">Response</a></span>&gt;</span></span>
   </span>
   
 
 </dt>
-<dd>
-  Called every time an handling is needed. <a href="../spark_rest/Application/onHandle.html">[...]</a>
-  
+<dd class="inherited">
+  Method called when something should be handled in this class 
+  <div class="features">inherited</div>
 
 </dd>
 
@@ -177,86 +176,8 @@
 
 </dt>
 <dd class="inherited">
-  Called to init a component only one time. <a href="../spark_rest/Application/onInit.html">[...]</a>
+  Method called to initialize this class 
   <div class="features">inherited</div>
-
-</dd>
-
-        <dt id="onInitServer" class="callable">
-  <span class="name"><a href="../spark_rest/Application/onInitServer.html">onInitServer</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.13.4/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  Registers everything. Do not call and/or override this method. Use <a href="../spark_rest/Application/onInit.html">onInit</a> instead 
-  
-
-</dd>
-
-        <dt id="registerEndpoint" class="callable">
-  <span class="name"><a href="../spark_rest/Application/registerEndpoint.html">registerEndpoint</a></span><span class="signature">(<wbr><span class="parameter" id="registerEndpoint-param-uri"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">uri</span>, </span><span class="parameter" id="registerEndpoint-param-method"><span class="type-annotation"><a href="../spark_rest/Method-class.html">Method</a></span> <span class="parameter-name">method</span>, </span><span class="parameter" id="registerEndpoint-param-endpoint"><span class="type-annotation"><a href="../spark_rest/Endpoint-class.html">Endpoint</a></span> <span class="parameter-name">endpoint</span></span>)
-    <span class="returntype parameter">&#8594; void</span>
-  </span>
-  
-
-</dt>
-<dd>
-  Used to register and endpoint 
-  
-
-</dd>
-
-        <dt id="registerEnviromentalVariable" class="callable">
-  <span class="name"><a href="../spark_rest/Application/registerEnviromentalVariable.html">registerEnviromentalVariable</a></span><span class="signature">(<wbr><span class="parameter" id="registerEnviromentalVariable-param-variable"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">variable</span></span>)
-    <span class="returntype parameter">&#8594; void</span>
-  </span>
-  
-
-</dt>
-<dd>
-  Used to register an enviromental variable 
-  
-
-</dd>
-
-        <dt id="registerPlugin" class="callable">
-  <span class="name"><a href="../spark_rest/Application/registerPlugin.html">registerPlugin</a></span><span class="signature">(<wbr><span class="parameter" id="registerPlugin-param-plugin"><span class="type-annotation"><a href="../spark_rest/Plugin-class.html">Plugin</a></span> <span class="parameter-name">plugin</span></span>)
-    <span class="returntype parameter">&#8594; void</span>
-  </span>
-  
-
-</dt>
-<dd>
-  Used to register a Plugin 
-  
-
-</dd>
-
-        <dt id="registerSingleMiddleware" class="callable">
-  <span class="name"><a href="../spark_rest/Application/registerSingleMiddleware.html">registerSingleMiddleware</a></span><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span><span class="signature">(<wbr><span class="parameter" id="registerSingleMiddleware-param-uri"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.4/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">uri</span>, </span><span class="parameter" id="registerSingleMiddleware-param-method"><span class="type-annotation"><a href="../spark_rest/Method-class.html">Method</a>?</span> <span class="parameter-name">method</span>, </span><span class="parameter" id="registerSingleMiddleware-param-attachType"><span class="type-annotation"><a href="../spark_rest/MiddlewareAttachType-class.html">MiddlewareAttachType</a></span> <span class="parameter-name">attachType</span>, </span><span class="parameter" id="registerSingleMiddleware-param-middleware"><span class="type-annotation"><a href="../spark_rest/Middleware-class.html">Middleware</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span> <span class="parameter-name">middleware</span></span>)
-    <span class="returntype parameter">&#8594; void</span>
-  </span>
-  
-
-</dt>
-<dd>
-  Used to register a <a href="../spark_rest/Middleware-class.html">Middleware</a> in a single location 
-  
-
-</dd>
-
-        <dt id="registerWidespreadMiddleware" class="callable">
-  <span class="name"><a href="../spark_rest/Application/registerWidespreadMiddleware.html">registerWidespreadMiddleware</a></span><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span><span class="signature">(<wbr><span class="parameter" id="registerWidespreadMiddleware-param-attachType"><span class="type-annotation"><a href="../spark_rest/MiddlewareAttachType-class.html">MiddlewareAttachType</a></span> <span class="parameter-name">attachType</span>, </span><span class="parameter" id="registerWidespreadMiddleware-param-middleware"><span class="type-annotation"><a href="../spark_rest/Middleware-class.html">Middleware</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span> <span class="parameter-name">middleware</span></span>)
-    <span class="returntype parameter">&#8594; void</span>
-  </span>
-  
-
-</dt>
-<dd>
-  Used to register a <a href="../spark_rest/Middleware-class.html">Middleware</a> in multiple location based on <a href="../spark_rest/Middleware/attachTo.html">Middleware.attachTo</a> 
-  
 
 </dd>
 
@@ -313,16 +234,10 @@
     <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/runtimeType.html">runtimeType</a></li>
 
-    <li class="section-title"><a href="../spark_rest/Application-class.html#instance-methods">Methods</a></li>
+    <li class="section-title inherited"><a href="../spark_rest/Application-class.html#instance-methods">Methods</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li><a href="../spark_rest/Application/onHandle.html">onHandle</a></li>
+    <li class="inherited"><a href="../spark_rest/Application/onHandle.html">onHandle</a></li>
     <li class="inherited"><a href="../spark_rest/Application/onInit.html">onInit</a></li>
-    <li><a href="../spark_rest/Application/onInitServer.html">onInitServer</a></li>
-    <li><a href="../spark_rest/Application/registerEndpoint.html">registerEndpoint</a></li>
-    <li><a href="../spark_rest/Application/registerEnviromentalVariable.html">registerEnviromentalVariable</a></li>
-    <li><a href="../spark_rest/Application/registerPlugin.html">registerPlugin</a></li>
-    <li><a href="../spark_rest/Application/registerSingleMiddleware.html">registerSingleMiddleware</a></li>
-    <li><a href="../spark_rest/Application/registerWidespreadMiddleware.html">registerWidespreadMiddleware</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/toString.html">toString</a></li>
 
     <li class="section-title inherited"><a href="../spark_rest/Application-class.html#operators">Operators</a></li>

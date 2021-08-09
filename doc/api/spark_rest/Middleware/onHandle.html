@@ -67,6 +67,7 @@
     <li class="section-title">
       <a href="../../spark_rest/Middleware-class.html#instance-properties">Properties</a>
     </li>
+    <li><a href="../../spark_rest/Middleware/attachFunction.html">attachFunction</a></li>
     <li><a href="../../spark_rest/Middleware/attachTo.html">attachTo</a></li>
     <li><a href="../../spark_rest/Middleware/clone.html">clone</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/hashCode.html">hashCode</a></li>
@@ -106,15 +107,14 @@
     </section>
     
 <section class="desc markdown">
-  <p>Called every time an handling is needed.</p>
-<p>Do not call this function, it is called from SparkREST from you.</p>
+  <p>Method called when something should be handled in this class</p>
 </section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">Future&lt;R&gt; onHandle(final P param);</code></pre>
+  <pre class="language-dart"><code class="language-dart">Future&lt;V&gt; onHandle(U param);</code></pre>
 </section>
 
 

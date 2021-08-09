@@ -4,7 +4,6 @@ import 'package:spark_rest/src/server/container/method.dart';
 
 /// A convenience class that contains an HTTP request
 class Request {
-
   /// Constructor
   const Request({
     required this.uri,
@@ -32,12 +31,14 @@ class Request {
   final Map<String, dynamic> container;
 
   @override
-  bool operator ==(Object other) => other is Request ?
-      uri == other.uri && method == other.method &&
-      headers == other.headers && body == other.body : false;
+  bool operator ==(Object other) => other is Request
+      ? uri == other.uri &&
+          method == other.method &&
+          headers == other.headers &&
+          body == other.body
+      : false;
 
   @override
-  int get hashCode => uri.hashCode + method.hashCode +
-      headers.hashCode + body.hashCode;
-
+  int get hashCode =>
+      uri.hashCode + method.hashCode + headers.hashCode + body.hashCode;
 }

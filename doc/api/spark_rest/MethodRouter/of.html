@@ -127,16 +127,15 @@
     </section>
     
 <section class="desc markdown">
-  <p>Convenience method that retrieves a <a href="../../spark_rest/MethodRouter-class.html">MethodRouter</a>
-from a <a href="../../spark_rest/Context-class.html">Context</a> with a specified <a href="https://api.dart.dev/stable/2.13.4/dart-core/Uri-class.html">Uri</a></p>
+  <p>Convenience method used to get the <a href="../../spark_rest/MethodRouter-class.html">MethodRouter</a> from a <a href="../../spark_rest/Context-class.html">Context</a></p>
 </section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">static MethodRouter of(final Context context, final String uri) =&gt;
-    UriRouter.of(context)[uri]!.methodRouter;</code></pre>
+  <pre class="language-dart"><code class="language-dart">static MethodRouter of(Context context, String uri) =&gt;
+    UriRouter.of(context)[uri]!;</code></pre>
 </section>
 
 

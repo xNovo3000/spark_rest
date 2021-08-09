@@ -5,7 +5,6 @@ import 'package:spark_rest/src/server/container/response.dart';
 import 'package:spark_rest/src/server/interface/handlable.dart';
 
 class EndpointChain implements Handlable<Request, Response> {
-
   const EndpointChain({
     required this.requestMiddlewares,
     required this.endpoint,
@@ -27,5 +26,4 @@ class EndpointChain implements Handlable<Request, Response> {
     }
     return response;
   }
-
 }

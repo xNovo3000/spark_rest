@@ -7,7 +7,6 @@ import 'package:spark_rest/src/server/interface/initializable.dart';
 
 /// A class that responds to a single [Uri] and a single [Method]
 abstract class Endpoint implements Initializable, Handlable<Request, Response> {
-
   /// Constructor
   const Endpoint({
     required this.uri,
@@ -22,5 +21,4 @@ abstract class Endpoint implements Initializable, Handlable<Request, Response> {
 
   @override
   Future<void> onInit(Context context) async => null;
-
 }

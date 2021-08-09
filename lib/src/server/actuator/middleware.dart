@@ -5,8 +5,8 @@ import 'package:spark_rest/src/server/container/response.dart';
 import 'package:spark_rest/src/server/interface/handlable.dart';
 import 'package:spark_rest/src/server/interface/initializable.dart';
 
+/// A reusable class that injects functionality to determined endpoints
 abstract class Middleware<T> implements Initializable, Handlable<T, T> {
-
   /// Constructor
   ///
   /// Ensures that [T] is always a [Request] or a [Response]
@@ -29,5 +29,4 @@ abstract class Middleware<T> implements Initializable, Handlable<T, T> {
   /// If you don't want to use the same [Middleware] instance for
   /// every attachment, then override this method
   Middleware<T>? get clone => null;
-
 }

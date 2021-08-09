@@ -1,6 +1,5 @@
 /// The class that contains all HTTP methods
 class Method {
-
   /// Returns the method class from the name of the method
   factory Method.fromValue(final String value) => values[value]!;
 
@@ -45,5 +44,4 @@ class Method {
     'DELETE': delete,
     'OPTIONS': options,
   };
-
 }

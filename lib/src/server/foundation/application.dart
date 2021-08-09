@@ -14,25 +14,24 @@ import 'package:spark_rest/src/server/interface/handlable.dart';
 import 'package:spark_rest/src/server/interface/initializable.dart';
 
 /// The base of a Spark server
-abstract class Application implements Initializable, Handlable<Request, Response> {
-
+abstract class Application
+    implements Initializable, Handlable<Request, Response> {
   /// Factory constructor
   factory Application({
     List<Middleware<Request>>? requestMiddlewares,
     List<Endpoint> endpoints = const [],
     List<Middleware<Response>>? responseMiddlewares,
     List<Plugin> plugins = const [],
-  }) => _ApplicationV1(
-    requestMiddlewares: requestMiddlewares ?? [],
-    endpoints: endpoints,
-    responseMiddlewares: responseMiddlewares ?? [],
-    plugins: plugins,
-  );
-
+  }) =>
+      _ApplicationV1(
+        requestMiddlewares: requestMiddlewares ?? [],
+        endpoints: endpoints,
+        responseMiddlewares: responseMiddlewares ?? [],
+        plugins: plugins,
+      );
 }
 
 class _ApplicationV1 implements Application {
-
   _ApplicationV1({
     required this.requestMiddlewares,
     required this.endpoints,
@@ -58,33 +57,27 @@ class _ApplicationV1 implements Application {
     }
     // create the router chain
     for (var endpoint in endpoints) {
-      uriRouter
-        .putIfAbsent(endpoint.uri, () => MethodRouter())
-        .putIfAbsent(endpoint.method, () => EndpointChain(
-          requestMiddlewares: [],
-          endpoint: endpoint,
-          responseMiddlewares: [],
-        ));
+      uriRouter.putIfAbsent(endpoint.uri, () => MethodRouter()).putIfAbsent(
+          endpoint.method,
+          () => EndpointChain(
+                requestMiddlewares: [],
+                endpoint: endpoint,
+                responseMiddlewares: [],
+              ));
     }
     for (var requestMiddleware in requestMiddlewares) {
-      uriRouter.forEach(
-        (uri, methodRouter) => methodRouter.forEach(
-          (method, endpointChain) =>
-            requestMiddleware.attachTo(uri, method) ?
-              requestMiddleware.attachFunction(endpointChain.requestMiddlewares) :
-              null
-        )
-      );
+      uriRouter.forEach((uri, methodRouter) => methodRouter.forEach(
+          (method, endpointChain) => requestMiddleware.attachTo(uri, method)
+              ? requestMiddleware
+                  .attachFunction(endpointChain.requestMiddlewares)
+              : null));
     }
     for (var responseMiddleware in responseMiddlewares) {
-      uriRouter.forEach(
-        (uri, methodRouter) => methodRouter.forEach(
-          (method, endpointChain) =>
-            responseMiddleware.attachTo(uri, method) ?
-              responseMiddleware.attachFunction(endpointChain.responseMiddlewares) :
-              null
-        )
-      );
+      uriRouter.forEach((uri, methodRouter) => methodRouter.forEach(
+          (method, endpointChain) => responseMiddleware.attachTo(uri, method)
+              ? responseMiddleware
+                  .attachFunction(endpointChain.responseMiddlewares)
+              : null));
     }
     // register elements in the context
     requestMiddlewares.forEach((element) => context.register(element));
@@ -110,13 +103,11 @@ class _ApplicationV1 implements Application {
       return response;
     } catch (error) {
       return Response(
-        request: request,
-        statusCode: 500,
-        headers: {},
-        contentType: ContentType.json,
-        body: json.encode({'error': '$error'})
-      );
+          request: request,
+          statusCode: 500,
+          headers: {},
+          contentType: ContentType.json,
+          body: json.encode({'error': '$error'}));
     }
   }
-
 }
