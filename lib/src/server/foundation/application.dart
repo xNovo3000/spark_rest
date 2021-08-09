@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 
 import 'package:spark_rest/src/server/chain/endpoint.dart';
+import 'package:spark_rest/src/server/actuator/plugin.dart';
 import 'package:spark_rest/src/server/router/method.dart';
 import 'package:spark_rest/src/server/router/uri.dart';
 import 'package:spark_rest/src/server/actuator/endpoint.dart';
@@ -18,7 +19,7 @@ abstract class Application implements Initializable, Handlable<Request, Response
     List<Middleware<Request>> requestMiddlewares = const [],
     List<Endpoint> endpoints = const [],
     List<Middleware<Response>> responseMiddlewares = const [],
-    List<Application> plugins = const [],
+    List<Plugin> plugins = const [],
   }) => _ApplicationV1(
     requestMiddlewares: requestMiddlewares,
     endpoints: endpoints,
@@ -29,7 +30,7 @@ abstract class Application implements Initializable, Handlable<Request, Response
   Iterable<Middleware<Request>> get requestMiddlewares;
   Iterable<Endpoint> get endpoints;
   Iterable<Middleware<Response>> get responseMiddlewares;
-  Iterable<Application> get plugins;
+  Iterable<Plugin> get plugins;
 
 }
 
@@ -49,14 +50,19 @@ class _ApplicationV1 implements Application {
   @override
   final List<Middleware<Response>> responseMiddlewares;
   @override
-  final List<Application> plugins;
+  final List<Plugin> plugins;
 
   late UriRouter uriRouter;
 
   @override
   Future<void> onInit(Context context) async {
     // get router instance
-    uriRouter = context.findObjectOfType<UriRouter>();
+    uriRouter = UriRouter.of(context);
+    // append plugins
+    for (var plugin in plugins) {
+      requestMiddlewares.addAll(plugin.requestMiddlewares);
+      responseMiddlewares.addAll(plugin.responseMiddlewares);
+    }
     // create the router chain
     for (var endpoint in endpoints) {
       uriRouter
