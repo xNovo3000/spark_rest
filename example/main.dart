@@ -64,5 +64,4 @@ class MyRequestMiddleware extends Middleware<Request> {
 Future main() => boot(application: Application(
   requestMiddlewares: [MyRequestMiddleware()],
   endpoints: [RootEndpoint(), TestEndpoint()],
-  responseMiddlewares: [],
 ));

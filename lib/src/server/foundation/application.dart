@@ -15,14 +15,21 @@ import 'package:spark_rest/src/server/interface/initializable.dart';
 abstract class Application implements Initializable, Handlable<Request, Response> {
 
   factory Application({
-    required List<Middleware<Request>> requestMiddlewares,
-    required List<Endpoint> endpoints,
-    required List<Middleware<Response>> responseMiddlewares,
+    List<Middleware<Request>> requestMiddlewares = const [],
+    List<Endpoint> endpoints = const [],
+    List<Middleware<Response>> responseMiddlewares = const [],
+    List<Application> plugins = const [],
   }) => _ApplicationV1(
     requestMiddlewares: requestMiddlewares,
     endpoints: endpoints,
     responseMiddlewares: responseMiddlewares,
+    plugins: plugins,
   );
+
+  Iterable<Middleware<Request>> get requestMiddlewares;
+  Iterable<Endpoint> get endpoints;
+  Iterable<Middleware<Response>> get responseMiddlewares;
+  Iterable<Application> get plugins;
 
 }
 
@@ -32,11 +39,17 @@ class _ApplicationV1 implements Application {
     required this.requestMiddlewares,
     required this.endpoints,
     required this.responseMiddlewares,
+    required this.plugins,
   });
 
+  @override
   final List<Middleware<Request>> requestMiddlewares;
+  @override
   final List<Endpoint> endpoints;
+  @override
   final List<Middleware<Response>> responseMiddlewares;
+  @override
+  final List<Application> plugins;
 
   late UriRouter uriRouter;
 
