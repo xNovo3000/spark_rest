@@ -1,7 +1,5 @@
-/// An interface for all handlable components
-abstract class Handlable<R, P> {
-  /// Called every time an handling is needed.
-  ///
-  /// Do not call this function, it is called from SparkREST from you.
-  Future<R> onHandle(final P param);
+/// Convenience class for all handlable objects
+abstract class Handlable<U, V> {
+  /// Method called when something should be handled in this class
+  Future<V> onHandle(U param);
 }

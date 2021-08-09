@@ -1,10 +1,11 @@
-import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
+import 'dart:convert';
 
-import 'package:spark_rest/src/server/actuator/application.dart';
+import 'package:spark_rest/spark_rest.dart';
 import 'package:spark_rest/src/server/container/method.dart';
 import 'package:spark_rest/src/server/container/request.dart';
+import 'package:spark_rest/src/server/foundation/context.dart';
+import 'package:spark_rest/src/server/foundation/application.dart';
 
 /// Function used to run a Spark server
 Future boot({
@@ -12,7 +13,10 @@ Future boot({
   int port = 8080,
 }) =>
     HttpServer.bind(InternetAddress.anyIPv4, port).then((server) async {
-      await application.onInit(application.context);
+      var context = Context();
+      var uriRouter = UriRouter();
+      context.register(uriRouter);
+      await application.onInit(context);
       server.listen((httpRequest) async {
         var request = Request(
             method: Method.fromValue(httpRequest.method),

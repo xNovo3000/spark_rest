@@ -146,13 +146,10 @@ the <a href="../../spark_rest/Response/hashCode.html">hashCode</a> method as wel
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
-bool operator ==(Object other) =&gt; other is Response
-    ? request == other.request &amp;&amp;
-        statusCode == other.statusCode &amp;&amp;
-        headers == other.headers &amp;&amp;
-        contentType == other.contentType &amp;&amp;
-        body == other.body
-    : false;</code></pre>
+bool operator ==(Object other) =&gt; other is Response ?
+    request == other.request &amp;&amp; statusCode == other.statusCode &amp;&amp;
+    headers == other.headers &amp;&amp; contentType == other.contentType &amp;&amp;
+    body == other.body : false;</code></pre>
 </section>
 
 

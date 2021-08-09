@@ -31,7 +31,7 @@
     <li><a href="../../index.html">spark_rest</a></li>
     <li><a href="../../spark_rest/spark_rest-library.html">spark_rest</a></li>
     <li><a href="../../spark_rest/Application-class.html">Application</a></li>
-    <li class="self-crumb">Application constructor</li>
+    <li class="self-crumb">Application factory constructor</li>
   </ol>
   <div class="self-name">Application</div>
   <form class="search navbar-right" role="search">
@@ -53,7 +53,7 @@
   <li><a href="../../index.html">spark_rest</a></li>
   <li><a href="../../spark_rest/spark_rest-library.html">spark_rest</a></li>
   <li><a href="../../spark_rest/Application-class.html">Application</a></li>
-  <li class="self-crumb">Application constructor</li>
+  <li class="self-crumb">Application factory constructor</li>
 </ol>
 
 
@@ -70,16 +70,10 @@
     <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/runtimeType.html">runtimeType</a></li>
 
-    <li class="section-title"><a href="../../spark_rest/Application-class.html#instance-methods">Methods</a></li>
+    <li class="section-title inherited"><a href="../../spark_rest/Application-class.html#instance-methods">Methods</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li><a href="../../spark_rest/Application/onHandle.html">onHandle</a></li>
+    <li class="inherited"><a href="../../spark_rest/Application/onHandle.html">onHandle</a></li>
     <li class="inherited"><a href="../../spark_rest/Application/onInit.html">onInit</a></li>
-    <li><a href="../../spark_rest/Application/onInitServer.html">onInitServer</a></li>
-    <li><a href="../../spark_rest/Application/registerEndpoint.html">registerEndpoint</a></li>
-    <li><a href="../../spark_rest/Application/registerEnviromentalVariable.html">registerEnviromentalVariable</a></li>
-    <li><a href="../../spark_rest/Application/registerPlugin.html">registerPlugin</a></li>
-    <li><a href="../../spark_rest/Application/registerSingleMiddleware.html">registerSingleMiddleware</a></li>
-    <li><a href="../../spark_rest/Application/registerWidespreadMiddleware.html">registerWidespreadMiddleware</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/toString.html">toString</a></li>
 
     <li class="section-title inherited"><a href="../../spark_rest/Application-class.html#operators">Operators</a></li>
@@ -99,13 +93,34 @@
 </h1></div>
 
     <section class="multi-line-signature">
-      <span class="name ">Application</span>(<wbr>)
+      <span class="name ">Application</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="-param-requestMiddlewares">{<span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../spark_rest/Middleware-class.html">Middleware</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../spark_rest/Request-class.html">Request</a></span>&gt;</span></span>&gt;</span>?</span> <span class="parameter-name">requestMiddlewares</span>, </span></li>
+<li><span class="parameter" id="-param-endpoints"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../spark_rest/Endpoint-class.html">Endpoint</a></span>&gt;</span></span> <span class="parameter-name">endpoints</span> = <span class="default-value">const []</span>, </span></li>
+<li><span class="parameter" id="-param-responseMiddlewares"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../spark_rest/Middleware-class.html">Middleware</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../spark_rest/Response-class.html">Response</a></span>&gt;</span></span>&gt;</span>?</span> <span class="parameter-name">responseMiddlewares</span>, </span></li>
+<li><span class="parameter" id="-param-plugins"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../spark_rest/Plugin-class.html">Plugin</a></span>&gt;</span></span> <span class="parameter-name">plugins</span> = <span class="default-value">const []</span>}</span></li>
+</ol>)
     </section>
 
     
+<section class="desc markdown">
+  <p>Factory constructor</p>
+</section>
 
 
     
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">factory Application({
+  List&lt;Middleware&lt;Request&gt;&gt;? requestMiddlewares,
+  List&lt;Endpoint&gt; endpoints = const [],
+  List&lt;Middleware&lt;Response&gt;&gt;? responseMiddlewares,
+  List&lt;Plugin&gt; plugins = const [],
+}) =&gt; _ApplicationV1(
+  requestMiddlewares: requestMiddlewares ?? [],
+  endpoints: endpoints,
+  responseMiddlewares: responseMiddlewares ?? [],
+  plugins: plugins,
+);</code></pre>
+</section>
 
 
   </div> <!-- /.main-content -->

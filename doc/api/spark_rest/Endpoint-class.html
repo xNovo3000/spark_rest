@@ -76,8 +76,6 @@
   <li class="section-title"><a href="../spark_rest/spark_rest-library.html#functions">Functions</a></li>
   <li><a href="../spark_rest/boot.html">boot</a></li>
 
-  <li class="section-title"><a href="../spark_rest/spark_rest-library.html#enums">Enums</a></li>
-  <li><a href="../spark_rest/MiddlewareAttachType-class.html">MiddlewareAttachType</a></li>
 
 
 </ol>
@@ -93,9 +91,7 @@
 
     
 <section class="desc markdown">
-  <p>A class that responds for a single HTTP method and a single HTTP uri</p>
-<p>Example: "GET /test HTTP/1.1" and "POST /test HTTP/1.1"
-are two different endpoints</p>
+  <p>A class that responds to a single <a href="https://api.dart.dev/stable/2.13.4/dart-core/Uri-class.html">Uri</a> and a single <a href="../spark_rest/Method-class.html">Method</a></p>
 </section>
 
 
@@ -105,15 +101,16 @@ are two different endpoints</p>
 
       <dl class="constructor-summary-list">
         <dt id="Endpoint" class="callable">
-          <span class="name"><a href="../spark_rest/Endpoint/Endpoint.html">Endpoint</a></span><span class="signature">()</span>
+          <span class="name"><a href="../spark_rest/Endpoint/Endpoint.html">Endpoint</a></span><span class="signature">(<span class="parameter" id="-param-uri">{<span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">uri</span>, </span><span class="parameter" id="-param-method"><span>required</span> <span class="type-annotation"><a href="../spark_rest/Method-class.html">Method</a></span> <span class="parameter-name">method</span>}</span>)</span>
         </dt>
         <dd>
-           
+          Constructor 
+          <div class="constructor-modifier features">const</div>
         </dd>
       </dl>
     </section>
 
-    <section class="summary offset-anchor inherited" id="instance-properties">
+    <section class="summary offset-anchor" id="instance-properties">
       <h2>Properties</h2>
 
       <dl class="properties">
@@ -128,6 +125,17 @@ are two different endpoints</p>
 
 </dd>
 
+        <dt id="method" class="property">
+  <span class="name"><a href="../spark_rest/Endpoint/method.html">method</a></span>
+  <span class="signature">&#8594; <a href="../spark_rest/Method-class.html">Method</a></span> 
+
+</dt>
+<dd>
+  The <a href="../spark_rest/Method-class.html">Method</a> the class must respond to 
+  <div class="features">final</div>
+
+</dd>
+
         <dt id="runtimeType" class="property inherited">
   <span class="name"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/runtimeType.html">runtimeType</a></span>
   <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.13.4/dart-core/Type-class.html">Type</a></span> 
@@ -136,6 +144,17 @@ are two different endpoints</p>
 <dd class="inherited">
   A representation of the runtime type of the object. 
   <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="uri" class="property">
+  <span class="name"><a href="../spark_rest/Endpoint/uri.html">uri</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.13.4/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  The <a href="https://api.dart.dev/stable/2.13.4/dart-core/Uri-class.html">Uri</a> the class must respond to 
+  <div class="features">final</div>
 
 </dd>
 
@@ -166,7 +185,7 @@ are two different endpoints</p>
 
 </dt>
 <dd class="inherited">
-  Called every time an handling is needed. <a href="../spark_rest/Endpoint/onHandle.html">[...]</a>
+  Method called when something should be handled in this class 
   <div class="features">inherited</div>
 
 </dd>
@@ -179,7 +198,7 @@ are two different endpoints</p>
 
 </dt>
 <dd>
-  Called to init a component only one time. <a href="../spark_rest/Endpoint/onInit.html">[...]</a>
+  Method called to initialize this class 
   
 
 </dd>
@@ -231,11 +250,13 @@ are two different endpoints</p>
     <li><a href="../spark_rest/Endpoint/Endpoint.html">Endpoint</a></li>
 
 
-    <li class="section-title inherited">
+    <li class="section-title">
       <a href="../spark_rest/Endpoint-class.html#instance-properties">Properties</a>
     </li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/hashCode.html">hashCode</a></li>
+    <li><a href="../spark_rest/Endpoint/method.html">method</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/runtimeType.html">runtimeType</a></li>
+    <li><a href="../spark_rest/Endpoint/uri.html">uri</a></li>
 
     <li class="section-title"><a href="../spark_rest/Endpoint-class.html#instance-methods">Methods</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>

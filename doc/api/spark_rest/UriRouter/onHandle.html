@@ -131,8 +131,7 @@
     </section>
     
 <section class="desc markdown">
-  <p>Called every time an handling is needed.</p>
-<p>Do not call this function, it is called from SparkREST from you.</p>
+  <p>Method called when something should be handled in this class</p>
 </section>
 
 
@@ -141,8 +140,8 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Future&lt;Response&gt; onHandle(Request request) async {
-  var uriChain = this[request.uri.path];
-  if (uriChain == null) {
+  var methodRouter = this[request.uri.path];
+  if (methodRouter == null) {
     return Response(
       request: request,
       statusCode: 404,
@@ -151,7 +150,7 @@ Future&lt;Response&gt; onHandle(Request request) async {
       body: &#39;{&quot;message&quot;:&quot;The uri does not exists&quot;}&#39;,
     );
   }
-  return uriChain.onHandle(request);
+  return methodRouter.onHandle(request);
 }</code></pre>
 </section>
 

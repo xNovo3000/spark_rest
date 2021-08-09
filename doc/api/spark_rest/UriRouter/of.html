@@ -126,15 +126,15 @@
     </section>
     
 <section class="desc markdown">
-  <p>Convenience method that retrieves an <a href="../../spark_rest/UriRouter-class.html">UriRouter</a> from a <a href="../../spark_rest/Context-class.html">Context</a></p>
+  <p>Convenience method used to get the <a href="../../spark_rest/UriRouter-class.html">UriRouter</a> from a <a href="../../spark_rest/Context-class.html">Context</a></p>
 </section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">static UriRouter of(final Context context) =&gt;
-    context.findInstanceOfType&lt;UriRouter&gt;();</code></pre>
+  <pre class="language-dart"><code class="language-dart">static UriRouter of(Context context) =&gt;
+    context.findObjectOfType&lt;UriRouter&gt;();</code></pre>
 </section>
 
 

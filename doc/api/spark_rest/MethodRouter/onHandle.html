@@ -131,8 +131,7 @@
     </section>
     
 <section class="desc markdown">
-  <p>Called every time an handling is needed.</p>
-<p>Do not call this function, it is called from SparkREST from you.</p>
+  <p>Method called when something should be handled in this class</p>
 </section>
 
 
@@ -148,7 +147,7 @@ Future&lt;Response&gt; onHandle(Request request) async {
       statusCode: 404,
       headers: {},
       contentType: ContentType.json,
-      body: &#39;{&quot;message&quot;:&quot;The method for this uri does not exists&quot;}&#39;,
+      body: &#39;{&quot;message&quot;:&quot;The method does not exists&quot;}&#39;,
     );
   }
   return endpointChain.onHandle(request);

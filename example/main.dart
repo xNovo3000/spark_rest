@@ -1,17 +1,14 @@
 import 'dart:io';
 
 import 'package:spark_rest/spark_rest.dart';
-import 'package:spark_rest/src/spark_rest_base.dart';
 
-class TestRequestMiddleware extends Middleware<Request> {
-  @override
-  Future<Request> onHandle(Request param) async {
-    param.container['test'] = 'My test variable';
-    return param;
-  }
-}
+class RootEndpoint extends Endpoint {
+  RootEndpoint()
+      : super(
+          uri: '/',
+          method: Method.get,
+        );
 
-class TestRootEndpoint extends Endpoint {
   @override
   Future<Response> onHandle(Request request) async {
     return Response(
@@ -19,12 +16,18 @@ class TestRootEndpoint extends Endpoint {
       statusCode: 200,
       headers: {},
       contentType: ContentType.text,
-      body: request.container['test'] ?? 'No variable',
+      body: request.container['Test'] ?? 'No var',
     );
   }
 }
 
-class TestMiddlewarelessEndpoint extends Endpoint {
+class TestEndpoint extends Endpoint {
+  TestEndpoint()
+      : super(
+          uri: '/test',
+          method: Method.get,
+        );
+
   @override
   Future<Response> onHandle(Request request) async {
     return Response(
@@ -32,20 +35,36 @@ class TestMiddlewarelessEndpoint extends Endpoint {
       statusCode: 200,
       headers: {},
       contentType: ContentType.text,
-      body: request.container['test'] ?? 'No variable',
+      body: request.container['Test'] ?? 'No var',
     );
   }
 }
 
-class MyApplication extends Application {
+class MyRequestMiddleware extends Middleware<Request> {
   @override
   Future<void> onInit(Context context) async {
-    registerEndpoint('/', Method.get, TestRootEndpoint());
-    registerEndpoint('/test', Method.get, TestMiddlewarelessEndpoint());
-    registerSingleMiddleware('/', Method.get,
-        MiddlewareAttachType.whenUriHasBeenExtracted, TestRequestMiddleware());
-    return super.onInit(context);
+    print(MethodRouter.of(context, '/test'));
   }
+
+  @override
+  Future<Request> onHandle(Request request) async {
+    request.container['Test'] = 'Test';
+    return request;
+  }
+
+  @override
+  bool Function(String uri, Method method) get attachTo =>
+      (uri, method) => uri == '/';
 }
 
-Future main() => boot(application: MyApplication());
+class MyPlugin extends Plugin {
+  @override
+  Iterable<Middleware<Request>> get requestMiddlewares =>
+      [MyRequestMiddleware()];
+}
+
+Future main() => boot(
+    application: Application(
+        requestMiddlewares: [],
+        endpoints: [RootEndpoint(), TestEndpoint()],
+        plugins: [MyPlugin()]));

@@ -67,6 +67,7 @@
     <li class="section-title">
       <a href="../../spark_rest/Middleware-class.html#instance-properties">Properties</a>
     </li>
+    <li><a href="../../spark_rest/Middleware/attachFunction.html">attachFunction</a></li>
     <li><a href="../../spark_rest/Middleware/attachTo.html">attachTo</a></li>
     <li><a href="../../spark_rest/Middleware/clone.html">clone</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/hashCode.html">hashCode</a></li>
@@ -111,8 +112,7 @@
     </section>
     
 <section class="desc markdown">
-  <p>Called to init a component only one time.</p>
-<p>Do not call this function, it is called from SparkREST from you.</p>
+  <p>Method called to initialize this class</p>
 </section>
 
 
@@ -120,7 +120,7 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
-Future&lt;void&gt; onInit(final Context context) async =&gt; null;</code></pre>
+Future&lt;void&gt; onInit(Context context) async =&gt; null;</code></pre>
 </section>
 
 

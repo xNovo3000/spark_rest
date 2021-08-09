@@ -67,6 +67,7 @@
     <li class="section-title">
       <a href="../../spark_rest/Middleware-class.html#instance-properties">Properties</a>
     </li>
+    <li><a href="../../spark_rest/Middleware/attachFunction.html">attachFunction</a></li>
     <li><a href="../../spark_rest/Middleware/attachTo.html">attachTo</a></li>
     <li><a href="../../spark_rest/Middleware/clone.html">clone</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/hashCode.html">hashCode</a></li>
@@ -99,9 +100,17 @@
     </section>
 
     
+<section class="desc markdown">
+  <p>Constructor</p>
+<p>Ensures that <code>T</code> is always a <a href="../../spark_rest/Request-class.html">Request</a> or a <a href="../../spark_rest/Response-class.html">Response</a></p>
+</section>
 
 
     
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Middleware() : assert(T == Request || T == Response);</code></pre>
+</section>
 
 
   </div> <!-- /.main-content -->

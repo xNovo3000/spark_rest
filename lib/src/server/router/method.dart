@@ -1,17 +1,17 @@
-import 'dart:collection';
 import 'dart:io';
+import 'dart:collection';
 
+import 'package:spark_rest/spark_rest.dart';
 import 'package:spark_rest/src/server/chain/endpoint.dart';
-import 'package:spark_rest/src/server/container/context.dart';
 import 'package:spark_rest/src/server/container/method.dart';
 import 'package:spark_rest/src/server/container/request.dart';
 import 'package:spark_rest/src/server/container/response.dart';
+import 'package:spark_rest/src/server/foundation/context.dart';
 import 'package:spark_rest/src/server/interface/handlable.dart';
-import 'package:spark_rest/src/server/router/uri.dart';
 
-/// A [Map] specialized to handle HTTP methods
+/// Convenience class that can dispatch HTTP methods
 class MethodRouter extends MapBase<Method, EndpointChain>
-    implements Handlable<Response, Request> {
+    implements Handlable<Request, Response> {
   final Map<Method, EndpointChain> _map = HashMap();
 
   @override
@@ -38,14 +38,13 @@ class MethodRouter extends MapBase<Method, EndpointChain>
         statusCode: 404,
         headers: {},
         contentType: ContentType.json,
-        body: '{"message":"The method for this uri does not exists"}',
+        body: '{"message":"The method does not exists"}',
       );
     }
     return endpointChain.onHandle(request);
   }
 
-  /// Convenience method that retrieves a [MethodRouter]
-  /// from a [Context] with a specified [Uri]
-  static MethodRouter of(final Context context, final String uri) =>
-      UriRouter.of(context)[uri]!.methodRouter;
+  /// Convenience method used to get the [MethodRouter] from a [Context]
+  static MethodRouter of(Context context, String uri) =>
+      UriRouter.of(context)[uri]!;
 }

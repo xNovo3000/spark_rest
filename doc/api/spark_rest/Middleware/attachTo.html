@@ -67,6 +67,7 @@
     <li class="section-title">
       <a href="../../spark_rest/Middleware-class.html#instance-properties">Properties</a>
     </li>
+    <li><a href="../../spark_rest/Middleware/attachFunction.html">attachFunction</a></li>
     <li><a href="../../spark_rest/Middleware/attachTo.html">attachTo</a></li>
     <li><a href="../../spark_rest/Middleware/clone.html">clone</a></li>
     <li class="inherited"><a href="https://api.dart.dev/stable/2.13.4/dart-core/Object/hashCode.html">hashCode</a></li>
@@ -99,7 +100,7 @@
 <section id="getter">
 
 <section class="multi-line-signature">
-  <span class="returntype"><a href="https://api.dart.dev/stable/2.13.4/dart-core/bool-class.html">bool</a> Function<span class="signature">(<span class="parameter" id="param-uri"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.4/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">uri</span>, </span><span class="parameter" id="param-method"><span class="type-annotation"><a href="../../spark_rest/Method-class.html">Method</a>?</span> <span class="parameter-name">method</span></span>)</span></span>
+  <span class="returntype"><a href="https://api.dart.dev/stable/2.13.4/dart-core/bool-class.html">bool</a> Function<span class="signature">(<span class="parameter" id="param-uri"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">uri</span>, </span><span class="parameter" id="param-method"><span class="type-annotation"><a href="../../spark_rest/Method-class.html">Method</a></span> <span class="parameter-name">method</span></span>)</span></span>
   <span class="name ">attachTo</span>
   
 
@@ -107,15 +108,14 @@
 
 
 <section class="desc markdown">
-  <p>Indicates for which uris and methods the middleware should attach to</p>
-<p>It is used only with if you are attempting to register
-this middleware in widespread mode.</p>
+  <p>Function used to check if this <a href="../../spark_rest/Middleware-class.html">Middleware</a> should attach
+to a request chain defined uri and method</p>
 </section>
 
 
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">bool Function(String? uri, Method? method) get attachTo =&gt;
+  <pre class="language-dart"><code class="language-dart">bool Function(String uri, Method method) get attachTo =&gt;
     (uri, method) =&gt; false;</code></pre>
 </section>
 

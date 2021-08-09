@@ -1,22 +1,22 @@
-import 'dart:collection';
 import 'dart:io';
+import 'dart:collection';
 
-import 'package:spark_rest/src/server/chain/uri.dart';
-import 'package:spark_rest/src/server/container/context.dart';
+import 'package:spark_rest/spark_rest.dart';
+import 'package:spark_rest/src/server/router/method.dart';
 import 'package:spark_rest/src/server/container/request.dart';
 import 'package:spark_rest/src/server/container/response.dart';
 import 'package:spark_rest/src/server/interface/handlable.dart';
 
-/// A [Map] specialized to handle Uris
-class UriRouter extends MapBase<String, UriChain>
-    implements Handlable<Response, Request> {
-  final Map<String, UriChain> _map = HashMap();
+/// Convenience class that can dispatch Uris
+class UriRouter extends MapBase<String, MethodRouter>
+    implements Handlable<Request, Response> {
+  final Map<String, MethodRouter> _map = HashMap();
 
   @override
-  UriChain? operator [](Object? key) => _map[key];
+  MethodRouter? operator [](Object? key) => _map[key];
 
   @override
-  void operator []=(String key, UriChain value) => _map[key] = value;
+  void operator []=(String key, MethodRouter value) => _map[key] = value;
 
   @override
   void clear() => _map.clear();
@@ -25,12 +25,12 @@ class UriRouter extends MapBase<String, UriChain>
   Iterable<String> get keys => _map.keys;
 
   @override
-  UriChain? remove(Object? key) => _map.remove(key);
+  MethodRouter? remove(Object? key) => _map.remove(key);
 
   @override
   Future<Response> onHandle(Request request) async {
-    var uriChain = this[request.uri.path];
-    if (uriChain == null) {
+    var methodRouter = this[request.uri.path];
+    if (methodRouter == null) {
       return Response(
         request: request,
         statusCode: 404,
@@ -39,10 +39,9 @@ class UriRouter extends MapBase<String, UriChain>
         body: '{"message":"The uri does not exists"}',
       );
     }
-    return uriChain.onHandle(request);
+    return methodRouter.onHandle(request);
   }
 
-  /// Convenience method that retrieves an [UriRouter] from a [Context]
-  static UriRouter of(final Context context) =>
-      context.findInstanceOfType<UriRouter>();
+  /// Convenience method used to get the [UriRouter] from a [Context]
+  static UriRouter of(Context context) => context.findObjectOfType<UriRouter>();
 }
