@@ -44,6 +44,7 @@ class MyRequestMiddleware extends Middleware<Request> {
   @override
   Future<void> onInit(Context context) async {
     print(MethodRouter.of(context, '/test'));
+    print(context.findObjectOfType<int>());
   }
 
   @override
@@ -67,4 +68,5 @@ Future main() => boot(
     application: Application(
         requestMiddlewares: [],
         endpoints: [RootEndpoint(), TestEndpoint()],
-        plugins: [MyPlugin()]));
+        plugins: [MyPlugin()],
+        environmentalVariables: [1]));

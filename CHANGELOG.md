@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.1
+
+- Added environmental variables
+- Plugins are now initializable
+
 ## 0.3.0
 
 - Rewritten the code (hopefully for the last time)
