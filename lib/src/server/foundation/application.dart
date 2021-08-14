@@ -22,12 +22,14 @@ abstract class Application
     List<Endpoint> endpoints = const [],
     List<Middleware<Response>>? responseMiddlewares,
     List<Plugin> plugins = const [],
+    List<dynamic> environmentalVariables = const [],
   }) =>
       _ApplicationV1(
         requestMiddlewares: requestMiddlewares ?? [],
         endpoints: endpoints,
         responseMiddlewares: responseMiddlewares ?? [],
         plugins: plugins,
+        environmentalVariables: environmentalVariables,
       );
 }
 
@@ -37,12 +39,14 @@ class _ApplicationV1 implements Application {
     required this.endpoints,
     required this.responseMiddlewares,
     required this.plugins,
+    required this.environmentalVariables,
   });
 
   final List<Middleware<Request>> requestMiddlewares;
   final List<Endpoint> endpoints;
   final List<Middleware<Response>> responseMiddlewares;
   final List<Plugin> plugins;
+  final List<dynamic> environmentalVariables;
 
   late UriRouter uriRouter;
 
@@ -83,6 +87,8 @@ class _ApplicationV1 implements Application {
     requestMiddlewares.forEach((element) => context.register(element));
     endpoints.forEach((element) => context.register(element));
     responseMiddlewares.forEach((element) => context.register(element));
+    plugins.forEach((element) => context.register(element));
+    environmentalVariables.forEach((element) => context.register(element));
     // init them
     for (var requestMiddleware in requestMiddlewares) {
       await requestMiddleware.onInit(context);
@@ -92,6 +98,9 @@ class _ApplicationV1 implements Application {
     }
     for (var endpoint in endpoints) {
       await endpoint.onInit(context);
+    }
+    for (var plugin in plugins) {
+      await plugin.onInit(context);
     }
   }
 
