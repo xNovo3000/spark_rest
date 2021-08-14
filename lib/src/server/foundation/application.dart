@@ -90,11 +90,23 @@ class _ApplicationV1 implements Application {
     plugins.forEach((element) => context.register(element));
     environmentalVariables.forEach((element) => context.register(element));
     // init them
-    for (var requestMiddleware in requestMiddlewares) {
-      await requestMiddleware.onInit(context);
-    }
-    for (var responseMiddleware in responseMiddlewares) {
-      await responseMiddleware.onInit(context);
+    var loadedRequestMiddlewares = <Middleware<Request>>[];
+    var loadedResponseMiddlewares = <Middleware<Response>>[];
+    for (var a1 in uriRouter.entries) {
+      for (var a2 in a1.value.entries) {
+        for (var requestMiddleware in a2.value.requestMiddlewares) {
+          if (!loadedRequestMiddlewares.contains(requestMiddleware)) {
+            await requestMiddleware.onInit(context);
+            loadedRequestMiddlewares.add(requestMiddleware);
+          }
+        }
+        for (var responseMiddleware in a2.value.responseMiddlewares) {
+          if (!loadedResponseMiddlewares.contains(responseMiddleware)) {
+            await responseMiddleware.onInit(context);
+            loadedResponseMiddlewares.add(responseMiddleware);
+          }
+        }
+      }
     }
     for (var endpoint in endpoints) {
       await endpoint.onInit(context);

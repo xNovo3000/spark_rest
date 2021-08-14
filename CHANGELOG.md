@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.2
+
+- Middleware clones are now loaded correctly
+
 ## 0.3.1
 
 - Added environmental variables
